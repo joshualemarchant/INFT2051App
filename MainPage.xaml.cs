@@ -1,24 +1,11 @@
-﻿namespace INFT2051App
+﻿namespace INFT2051App;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
-    {
-        int count = 0;
-
-        public MainPage()
-        {
-            InitializeComponent();
-        }
-
-        private void OnCounterClicked(object? sender, EventArgs e)
-        {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
-    }
+	public MainPage()
+	{
+		//NavigationPage.SetHasNavigationBar(this, false);
+		InitializeComponent();
+	}
 }
+

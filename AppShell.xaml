@@ -5,10 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:INFT2051App"
     Title="INFT2051App">
+    
+    <TabBar>
+        <!--Home Page Tab-->
+        <Tab Title="Home" Icon="appicon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        <!--Add page tab-->
+        <Tab Title="Add" Icon="appicon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:AddQuestionPage}"/>
+        </Tab>
+
+        <!--Settings page Tab-->
+        <Tab Title="Settings" Icon="appicon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}"/>
+        </Tab>
+    </TabBar>
 
 </Shell>
