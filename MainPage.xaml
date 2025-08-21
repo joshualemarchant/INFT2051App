@@ -2,15 +2,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.MainPage"
-             Title="INFT 2051">
+             Title="Home">
 			 
-    <ScrollView>
-        <VerticalStackLayout 
-            Spacing="25" 
-            Padding="30,0" 
-            VerticalOptions="Center">
+  <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+            
+            <!-- Title -->
+            <Label Text="Your Questions" 
+                   FontSize="28" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20"/>
 
-        </VerticalStackLayout>
+            <!-- Question 1 -->
+            <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#2D2D30}"
+                    StrokeThickness="2"
+                    Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
+                    StrokeShape="RoundRectangle 10">
+                
+                
+                <StackLayout>
+                    <Label Text="What is the name of the first David Lynch film?"
+                           Style="{StaticResource SubHeadline}"
+                           Padding="20"/>
+                    <Button Text="Show Answer"
+                            x:Name="Question1Button"
+                            BackgroundColor="Transparent"
+                            TextColor="{AppThemeBinding Light=Black, Dark=White}"
+                            Clicked="OnQuestionClicked"/>
+                    
+                    <StackLayout x:Name="Answer1" IsVisible="False" Padding="15,0,15,15">
+                        <Label Text="A: Eraserhead"
+                               TextColor="{AppThemeBinding Light=#666666, Dark=#CCCCCC}"
+                               LineBreakMode="WordWrap"/>
+                    </StackLayout>
+                </StackLayout>
+            </Border>
+
+        </StackLayout>
     </ScrollView>
  
 </ContentPage>

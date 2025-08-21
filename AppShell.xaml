@@ -8,17 +8,17 @@
     
     <TabBar>
         <!--Home Page Tab-->
-        <Tab Title="Home" Icon="appicon.png">
+        <Tab Title="" Icon="home.png">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
         </Tab>
 
         <!--Add page tab-->
-        <Tab Title="Add" Icon="appicon.png">
+        <Tab Title="" Icon="add.png">
             <ShellContent ContentTemplate="{DataTemplate local:AddQuestionPage}"/>
         </Tab>
 
         <!--Settings page Tab-->
-        <Tab Title="Settings" Icon="appicon.png">
+        <Tab Title="" Icon="cog.png">
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}"/>
         </Tab>
     </TabBar>
