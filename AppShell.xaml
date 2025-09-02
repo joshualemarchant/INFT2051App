@@ -17,6 +17,11 @@
             <ShellContent ContentTemplate="{DataTemplate local:AddQuestionPage}"/>
         </Tab>
 
+        <!--Notifications-->
+        <Tab Title="" Icon="bell.png">
+            <ShellContent ContentTemplate="{DataTemplate local:NotificationsPagexaml}"/>
+        </Tab>
+
         <!--Settings page Tab-->
         <Tab Title="" Icon="cog.png">
             <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}"/>
