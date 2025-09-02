@@ -16,7 +16,7 @@
     <Style TargetType="Border">
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
-        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="StrokeThickness" Value="4"/>
     </Style>
 
     <Style TargetType="BoxView">
@@ -446,6 +446,13 @@
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+    </Style>
+    
+    <!--Custom Styles-->
+
+    <Style TargetType="VerticalStackLayout">
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="Spacing" Value="10" />
     </Style>
 
 </ResourceDictionary>

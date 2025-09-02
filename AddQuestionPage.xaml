@@ -4,9 +4,12 @@
              x:Class="INFT2051App.AddQuestionPage"
              Title="">
     <VerticalStackLayout>
-        <Label 
-            Text="Add Question Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Question:" />
+        <Entry x:Name="PromptEntry" Placeholder="Enter your question" />
+
+        <Label Text="Answer: " />
+        <Editor x:Name="AnswerEditor" Placeholder="Enter answer" HeightRequest="100" />
+
+        <Button Text="Save" Clicked="onSaveClicked" />
     </VerticalStackLayout>
 </ContentPage>

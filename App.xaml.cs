@@ -2,6 +2,16 @@
 {
     public partial class App : Application
     {
+        private static AppDatabase? database;
+        public static AppDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                    database = new AppDatabase();
+                return database;
+            }
+        }
         public App()
         {
             InitializeComponent();

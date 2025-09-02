@@ -1,40 +1,60 @@
 ﻿using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace INFT2051App;
 
 public partial class MainPage : ContentPage
 {
+    // Observable collection for UI binding
+    private ObservableCollection<UserQuestion> Questions { get; } = new();
     public MainPage()
     {
         InitializeComponent();
+        QuestionsCollection.ItemsSource = Questions;
     }
 
-    private void OnQuestionClicked(object sender, EventArgs e)
+    protected override async void OnAppearing()
     {
-        if (sender is Button button)
+        base.OnAppearing();
+        await LoadQuestionsAsync();
+      
+    }
+
+    private async Task LoadQuestionsAsync()
+    {
+        var questions = await App.Database.GetItemsAsync();
+        Questions.Clear();
+        foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
+            Questions.Add(q);
+    }
+
+    private void OnShowAnswerClicked(object sender, EventArgs  e)
+    {
+        if (sender is Button btn && btn.Parent is VerticalStackLayout vstack)
         {
-            // Get the parent StackLayout that contains both button and answer
-            if (button.Parent is StackLayout parentStack)
+            // Find the Answer StackLayout inside this question item
+            var answerStack = vstack.Children.OfType<StackLayout>().FirstOrDefault();
+            if (answerStack != null)
             {
-                // Find the answer StackLayout (should be the second child)
-                var answerStack = parentStack.Children.OfType<StackLayout>().FirstOrDefault(x => x != button.Parent);
+                answerStack.IsVisible = !answerStack.IsVisible;
+                btn.Text = answerStack.IsVisible ? "Hide Answer" : "Show Answer";
+            }
 
-                if (answerStack != null)
-                {
-                    // Toggle visibility
-                    answerStack.IsVisible = !answerStack.IsVisible;
+        }
+    }
 
-                    // Update button text to show expand/collapse state
-                    if (answerStack.IsVisible)
-                    {
-                        button.Text = button.Text.Replace("▶", "▼");
-                    }
-                    else
-                    {
-                        button.Text = button.Text.Replace("▼", "▶");
-                    }
-                }
+    private async void OnDeleteAnswerClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.BindingContext is UserQuestion question)
+        {
+            bool confirm = await DisplayAlert("Delete", "Are you sure you want to delete this question?", "Yes", "No");
+            if (confirm)
+            {
+                await App.Database.DeleteItemAsync(question);
+                await LoadQuestionsAsync();
             }
         }
     }
+
 }
