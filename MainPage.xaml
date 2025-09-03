@@ -23,9 +23,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#2D2D30}"
-                                Stroke="{AppThemeBinding Light=#E0E0E0, Dark=#404040}"
-                                StrokeShape="RoundRectangle 10">
+                        <Border>
                             <VerticalStackLayout>
                                 <!--Question-->
                                 <Label Text="{Binding Prompt}"
