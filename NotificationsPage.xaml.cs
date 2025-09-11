@@ -36,8 +36,9 @@ public partial class NotificationsPage : ContentPage
 
     private async void OnGoToAnswerQuestionPageClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AnswerQuestionPage());
-
+        if (sender is Button button && button.CommandParameter is UserQuestion question)
+        {
+            await Navigation.PushAsync(new AnswerQuestionPage(question));
+        }
     }
-
 }

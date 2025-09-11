@@ -32,12 +32,9 @@
                             
                             <!-- Optional action button -->
                                 <Button Text="Tap to answer"
-                                        Clicked="OnGoToAnswerQuestionPageClicked">
-                                    
-                                </Button>
-                                
-                                    
-                        </VerticalStackLayout>
+                                        Clicked="OnGoToAnswerQuestionPageClicked"
+                                        CommandParameter="{Binding .}"/>
+                            </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -9,7 +9,14 @@ public partial class AddQuestionPage : ContentPage
 
 	private async void onSaveClicked(object sender, EventArgs e)
 	{
-		//TODO: Add error handling for empty text values
+		//TODO: Add error handling for empty text values and change IsDue to 'false' once testing is done
+
+		  if (string.IsNullOrWhiteSpace(PromptEntry.Text) && string.IsNullOrWhiteSpace(AnswerEditor.Text))
+        {
+            await DisplayAlert("Error", "Input fields cannot be blank!!", "OK");
+            return; 
+        }
+		
 		var question = new UserQuestion
 		{
 			Prompt = PromptEntry.Text,

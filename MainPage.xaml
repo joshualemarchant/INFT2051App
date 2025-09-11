@@ -14,6 +14,14 @@
                    HorizontalOptions="Center"
                    Margin="0,0,0,20"/>
 
+            <!--Display message if user has no questions-->
+            <Label x:Name="NoQuestionsLabel"
+                   Text="No questions yet!"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0, 200, 0, 0"
+                   IsVisible="False"/>  
+
             <!-- Question list -->
             
 
@@ -34,8 +42,7 @@
                                         BackgroundColor="Transparent"
                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                         Clicked="OnShowAnswerClicked" />
-
-                                <Button Text="Delete Question"
+                                <Button Text="Delete"
                                         Clicked="OnDeleteAnswerClicked"/>
 
                                 <!-- Answer -->

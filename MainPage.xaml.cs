@@ -25,9 +25,19 @@ public partial class MainPage : ContentPage
     {
         var questions = await App.Database.GetItemsAsync<UserQuestion>();
         Questions.Clear();
-        foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
-            Questions.Add(q);
+
+        if (questions == null || !questions.Any())
+        {
+            NoQuestionsLabel.IsVisible = true;
+        }
+        else
+        {
+            NoQuestionsLabel.IsVisible = false;
+            foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
+                Questions.Add(q);
+        }
     }
+
 
     private void OnShowAnswerClicked(object sender, EventArgs  e)
     {
@@ -48,13 +58,14 @@ public partial class MainPage : ContentPage
     {
         if (sender is Button btn && btn.BindingContext is UserQuestion question)
         {
-            bool confirm = await DisplayAlert("Delete", "Are you sure you want to delete this question?", "Yes", "No");
-            if (confirm)
-            {
                 await App.Database.DeleteItemAsync(question);
                 await LoadQuestionsAsync();
             }
         }
-    }
+    
 
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
