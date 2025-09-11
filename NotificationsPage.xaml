@@ -6,15 +6,21 @@
 
     <ScrollView>
         <VerticalStackLayout>
+            <Label Text="Due Questions"
+                FontSize="28" 
+                FontAttributes="Bold" 
+                HorizontalOptions="Center"
+                Margin="0,0,0,20"/>
+           
             <CollectionView x:Name="DueQuestionsCollection"
                             ItemsSource="{Binding DueQuestions}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                     <Border>
-                        <VerticalStackLayout Spacing="5">
+                        <VerticalStackLayout>
 
                             <!-- Question text -->
-                            <Label Text="{Binding Text}" 
+                            <Label Text="{Binding Prompt}" 
                                    FontSize="16"
                                    FontAttributes="Bold"
                                    LineBreakMode="TailTruncation"/>
@@ -23,20 +29,12 @@
                             <Label Text="{Binding CreatedAt, StringFormat='Created: {0:MMM dd, yyyy hh:mm tt}'}"
                                    FontSize="12"
                                    TextColor="Gray"/>
-
-                            <!-- Due indicator -->
-                            <Label Text="⚠️ This question is due!"
-                                   TextColor="Red"
-                                   FontAttributes="Bold"
-                                   FontSize="14"/>
-
+                            
                             <!-- Optional action button -->
-                            <Button Text="View" 
-                                    Command="{Binding Source={x:Reference NotificationsPage}, Path=BindingContext.ViewQuestionCommand}" 
-                                    CommandParameter="{Binding .}" 
-                                    BackgroundColor="#6200EE" 
-                                    TextColor="White"
-                                    CornerRadius="8"/>
+                                <Button Text="Tap to answer">
+                                    
+                                </Button> 
+                                    
                         </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
