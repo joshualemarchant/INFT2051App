@@ -42,7 +42,7 @@
                                 <StackLayout IsVisible="False" x:Name="AnswerStack">
                                     <Label Text="{Binding Answer, StringFormat='A: {0}'}"
                                            TextColor="{AppThemeBinding Light=#666666, Dark=#CCCCCC}"
-                                           LineBreakMode="WordWrap" />
+                                           LineBreakMode="WordWrap"/>
                                 </StackLayout>
                             </VerticalStackLayout>
                         </Border>
