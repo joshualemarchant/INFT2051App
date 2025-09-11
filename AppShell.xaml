@@ -19,7 +19,7 @@
 
         <!--Notifications-->
         <Tab Title="" Icon="bell.png">
-            <ShellContent ContentTemplate="{DataTemplate local:NotificationsPagexaml}"/>
+            <ShellContent ContentTemplate="{DataTemplate local:NotificationsPage}"/>
         </Tab>
 
         <!--Settings page Tab-->

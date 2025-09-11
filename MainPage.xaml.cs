@@ -23,7 +23,7 @@ public partial class MainPage : ContentPage
 
     private async Task LoadQuestionsAsync()
     {
-        var questions = await App.Database.GetItemsAsync();
+        var questions = await App.Database.GetItemsAsync<UserQuestion>();
         Questions.Clear();
         foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
             Questions.Add(q);

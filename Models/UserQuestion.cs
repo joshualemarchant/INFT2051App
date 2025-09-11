@@ -6,6 +6,8 @@ public class UserQuestion
     public int ID { get; set; }
     public string? Prompt { get; set; }
     public string? Answer { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
+
+    public bool IsDue { get; set; }
     public bool IsAnswered { get; set; }
 }

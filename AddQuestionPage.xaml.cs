@@ -14,6 +14,7 @@ public partial class AddQuestionPage : ContentPage
 			Prompt = PromptEntry.Text,
 			Answer = AnswerEditor.Text,
 			CreatedAt = DateTime.UtcNow,
+			IsDue = true,
 			IsAnswered = false
 		};
         await App.Database.SaveItemAsync(question);

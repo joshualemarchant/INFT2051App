@@ -10,40 +10,46 @@ public class AppDatabase
     {
     }
 
-    // Initialize the database (create table if it doesn't exist)
-    public async Task Init()
+    // Initialize the database for a given model type
+    public async Task Init<T>() where T : new()
     {
-        if (database != null)
-            return;
+        if (database == null)
+        {
+            database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+        }
 
-        database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-        await database.CreateTableAsync<UserQuestion>();
+        await database.CreateTableAsync<T>();
     }
 
-    // Save a question (insert if new, update if existing)
-    public async Task<int> SaveItemAsync(UserQuestion item)
+    // Save an item (insert if new, update if existing)
+    public async Task<int> SaveItemAsync<T>(T item) where T : new()
     {
-        await Init();
+        await Init<T>();
 
-        if (item.ID != 0)
-            return await database.UpdateAsync(item); // update existing
-        else
-            return await database.InsertAsync(item); // insert new
+        // Check if the item has an ID property (commonly used as primary key)
+        var propertyInfo = typeof(T).GetProperty("ID");
+        if (propertyInfo != null)
+        {
+            var idValue = (int)(propertyInfo.GetValue(item) ?? 0);
+
+            if (idValue != 0)
+                return await database.UpdateAsync(item); // update existing
+        }
+
+        return await database.InsertAsync(item); // insert new
     }
 
-    // Get all questions
-    public async Task<List<UserQuestion>> GetItemsAsync()
+    // Get all items of type T
+    public async Task<List<T>> GetItemsAsync<T>() where T : new()
     {
-        await Init();
-        return await database.Table<UserQuestion>()
-                             .OrderByDescending(q => q.CreatedAt)
-                             .ToListAsync();
+        await Init<T>();
+        return await database.Table<T>().ToListAsync();
     }
 
-    // Delete a question
-    public async Task<int> DeleteItemAsync(UserQuestion item)
+    // Delete an item
+    public async Task<int> DeleteItemAsync<T>(T item) where T : new()
     {
-        await Init();
+        await Init<T>();
         return await database.DeleteAsync(item);
     }
 }

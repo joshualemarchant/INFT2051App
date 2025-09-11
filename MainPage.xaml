@@ -36,8 +36,6 @@
                                         Clicked="OnShowAnswerClicked" />
 
                                 <Button Text="Delete Question"
-                                        BackgroundColor="Red"
-                                        TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                         Clicked="OnDeleteAnswerClicked"/>
 
                                 <!-- Answer -->
