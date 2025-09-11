@@ -9,6 +9,7 @@ public partial class AddQuestionPage : ContentPage
 
 	private async void onSaveClicked(object sender, EventArgs e)
 	{
+		//TODO: Add error handling for empty text values
 		var question = new UserQuestion
 		{
 			Prompt = PromptEntry.Text,

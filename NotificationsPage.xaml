@@ -31,9 +31,11 @@
                                    TextColor="Gray"/>
                             
                             <!-- Optional action button -->
-                                <Button Text="Tap to answer">
+                                <Button Text="Tap to answer"
+                                        Clicked="OnGoToAnswerQuestionPageClicked">
                                     
-                                </Button> 
+                                </Button>
+                                
                                     
                         </VerticalStackLayout>
                     </Border>

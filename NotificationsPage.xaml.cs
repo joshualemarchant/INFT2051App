@@ -1,3 +1,4 @@
+using INFT2051App.Pages;
 using System.Collections.ObjectModel;
 
 namespace INFT2051App;
@@ -31,6 +32,12 @@ public partial class NotificationsPage : ContentPage
         DueQuestions.Clear();
         foreach (var q in dueQuestions)
             DueQuestions.Add(q);
+    }
+
+    private async void OnGoToAnswerQuestionPageClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new AnswerQuestionPage());
+
     }
 
 }
