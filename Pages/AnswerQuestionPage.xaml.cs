@@ -20,7 +20,7 @@ public partial class AnswerQuestionPage : ContentPage
             return; 
         }
 
-        if (Question.Answer.ToLower() == UserAnswer.ToLower())
+        if (Question.Answer.ToLower().Trim() == UserAnswer.ToLower().Trim())
         {
             Question.IsAnswered = true;
             await DisplayAlert("Result", "Correct!", "Ok");

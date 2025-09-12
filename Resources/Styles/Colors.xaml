@@ -27,6 +27,9 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    <Color x:Key="TransparentTabBar">#00FFFFFF</Color>
+   
+    
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
@@ -42,18 +45,19 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
-    
+    <SolidColorBrush x:Key="TransparentTabBarTintedBrush" Color="{StaticResource TransparentTabBar}" />
+
     <!--Custom-->
 
-    <LinearGradientBrush x:Key="PrimaryGradientBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="{StaticResource Primary}" Offset="0.0" />
-        <GradientStop Color="#D9DDDC" Offset="1.0" />
+    <LinearGradientBrush x:Key="PrimaryGradientBrush">
+        <GradientStop Color="#FFC7A7" Offset="0"/>
+        <GradientStop Color="#F08787" Offset="1"/>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="PrimaryDarkGradientBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Color="{StaticResource PrimaryDark}" Offset="0.0" />
-        <GradientStop Color="#544C4A" Offset="1.0" />
+    <LinearGradientBrush x:Key="PrimaryDarkGradientBrush" EndPoint="0,1">
+        <GradientStop Color="#471396" Offset="0" />
+        <GradientStop Color="#090040" Offset="1" />
+       
     </LinearGradientBrush>
-    
-    
+
 </ResourceDictionary>

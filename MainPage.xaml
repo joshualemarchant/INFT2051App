@@ -42,9 +42,7 @@
                                         BackgroundColor="Transparent"
                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                         Clicked="OnShowAnswerClicked" />
-                                <Button Text="Delete"
-                                        Clicked="OnDeleteAnswerClicked"/>
-
+                                
                                 <!-- Answer -->
                                 <StackLayout IsVisible="False" x:Name="AnswerStack">
                                     <Label Text="{Binding Answer, StringFormat='A: {0}'}"
