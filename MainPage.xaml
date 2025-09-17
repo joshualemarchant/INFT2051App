@@ -43,11 +43,19 @@
                                         TextColor="{AppThemeBinding Light=Black, Dark=White}"
                                         Clicked="OnShowAnswerClicked" />
                                 
+                                
+                                <!--Uncomment for quick deletion while testing-->
+                                <!--<Button
+                                        Text="Delete"
+                                        Clicked="OnDeleteAnswerClicked"/>-->
+                                
                                 <!-- Answer -->
                                 <StackLayout IsVisible="False" x:Name="AnswerStack">
                                     <Label Text="{Binding Answer, StringFormat='A: {0}'}"
                                            TextColor="{AppThemeBinding Light=#666666, Dark=#CCCCCC}"
                                            LineBreakMode="WordWrap"/>
+                                    
+
                                 </StackLayout>
                             </VerticalStackLayout>
                         </Border>
