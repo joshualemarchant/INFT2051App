@@ -45,9 +45,9 @@
                                 
                                 
                                 <!--Uncomment for quick deletion while testing-->
-                                <!--<Button
+                                <Button
                                         Text="Delete"
-                                        Clicked="OnDeleteAnswerClicked"/>-->
+                                        Clicked="OnDeleteAnswerClicked"/>
                                 
                                 <!-- Answer -->
                                 <StackLayout IsVisible="False" x:Name="AnswerStack">

@@ -1,4 +1,6 @@
-﻿namespace INFT2051App
+﻿
+
+namespace INFT2051App
 {
     public partial class App : Application
     {
@@ -17,6 +19,7 @@
             InitializeComponent();
 
         }
+    
 
         protected override Window CreateWindow(IActivationState? activationState)
         {

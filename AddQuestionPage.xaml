@@ -9,7 +9,43 @@
 
         <Label Text="Answer: " />
         <Editor x:Name="AnswerEditor" Placeholder="Enter answer" HeightRequest="100" />
+        
+        <!--Testing Mode Option-->
+        <Label x:Name="TestOptionLabel"
+           Text="Test Mode"
+           FontSize="18"
+           HorizontalOptions="Center" />
+        
+        <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+            
+            <!-- On/Off Label -->
+            <Label Text="Off"
+                   x:Name="OffOnLabel"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+        
+            <!--Toggle Switch-->
+            <Switch x:Name="ToggleSwitch"
+                IsToggled="False"
+                Toggled="TestSwitchToggled"
+                HorizontalOptions="Center" />
+        
+           
+        </HorizontalStackLayout>
+
+
+        <StackLayout x:Name="DateSelectionBox"
+                             IsVisible="True">
+            
+            <Label Text="Select Time: "/>
+            <DatePicker x:Name="MyDatePicker"
+                        Date="{Binding SelectedDate}"
+                        MinimumDate="{Binding CurrentDateTime}"
+                        MaximumDate="12/31/2100"
+                        Format="D"/>
+        </StackLayout>
 
         <Button Text="Save" Clicked="onSaveClicked" />
+        
     </VerticalStackLayout>
 </ContentPage>

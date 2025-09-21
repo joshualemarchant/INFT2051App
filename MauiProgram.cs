@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
+
 namespace INFT2051App
 {
     public static class MauiProgram

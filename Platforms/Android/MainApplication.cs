@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
+
 namespace INFT2051App
 {
     [Application]
