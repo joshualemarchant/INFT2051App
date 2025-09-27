@@ -39,6 +39,18 @@ public class AppDatabase
         return await database.InsertAsync(item); // insert new
     }
 
+    // Get a single item by ID
+    public async Task<T?> GetItemAsync<T>(int id) where T : new()
+    {
+        await Init<T>();
+
+        var propertyInfo = typeof(T).GetProperty("ID");
+        if (propertyInfo == null)
+            throw new InvalidOperationException($"{typeof(T).Name} does not have an ID property.");
+
+        return await database.FindAsync<T>(id);
+    }
+
     // Get all items of type T
     public async Task<List<T>> GetItemsAsync<T>() where T : new()
     {

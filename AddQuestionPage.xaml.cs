@@ -1,4 +1,5 @@
-using INFT2051App.Services.PartialMethods;
+
+using Plugin.LocalNotification;
 
 namespace INFT2051App;
 
@@ -16,7 +17,7 @@ public partial class AddQuestionPage : ContentPage
 
         //TODO: Add error handling for empty text values and change IsDue to 'false' once testing is done
 
-        if (string.IsNullOrWhiteSpace(PromptEntry.Text) && string.IsNullOrWhiteSpace(AnswerEditor.Text))
+        if (string.IsNullOrWhiteSpace(PromptEntry.Text) || string.IsNullOrWhiteSpace(AnswerEditor.Text))
         {
             await DisplayAlert("Error", "Input fields cannot be blank!!", "OK");
             return;
@@ -32,14 +33,25 @@ public partial class AddQuestionPage : ContentPage
             IsAnswered = false
         };
 
-        // Declare schedule time variable
-        DateTime scheduleTime = SetSchedule();
-
-        NotificationService.SendNotification("You have a question ready!", PromptEntry.Text, scheduleTime);
-
+        // Save question
         await App.Database.SaveItemAsync(question);
 
         await DisplayAlert("Saved", "Question saved successfully!", "OK");
+
+
+        // Schedule Notification
+        var scheduledNotification = new NotificationRequest
+        {
+            NotificationId = question.ID,
+            Title = "You have a question ready!",
+            Description = PromptEntry.Text,
+            Schedule =
+            {
+                NotifyTime = SetSchedule()
+            },
+            ReturningData = question.ID.ToString()
+        };
+        await LocalNotificationCenter.Current.Show(scheduledNotification);
 
         // Clear input
         PromptEntry.Text = string.Empty;
@@ -64,20 +76,13 @@ public partial class AddQuestionPage : ContentPage
         }
     }
     private DateTime SetSchedule()
-    {
-        DateTime e;
+    { 
         if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
-        {
-            e = DateTime.Now.AddSeconds(10);
-
-        }
+         return DateTime.Now.AddSeconds(10);
         else
-        {
-            e = MyDatePicker.Date;
-
-        }
-        return e;
+       return MyDatePicker.Date;
     }
+        
+}
 
    
-}
