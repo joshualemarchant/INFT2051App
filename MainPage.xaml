@@ -54,14 +54,18 @@
                                     <Label Text="{Binding Answer, StringFormat='A: {0}'}"
                                            TextColor="{AppThemeBinding Light=#666666, Dark=#CCCCCC}"
                                            LineBreakMode="WordWrap"/>
-                                    
+
+                                
+
 
                                 </StackLayout>
+                                
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                                 
         </VerticalStackLayout>
     </ScrollView>
  

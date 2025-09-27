@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using INFT2051App.Services.PartialMethods;
+using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -64,8 +65,5 @@ public partial class MainPage : ContentPage
         }
     
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-
-    }
+    
 }
