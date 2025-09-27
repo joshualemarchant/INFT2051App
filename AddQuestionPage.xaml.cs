@@ -5,11 +5,11 @@ namespace INFT2051App;
 public partial class AddQuestionPage : ContentPage
 {
     public bool TestingModeOn = false;
-    public DateTime TestscheduleTime= DateTime.Now.AddSeconds(10);
 	public AddQuestionPage()
 	{
 		InitializeComponent();
 	}
+
 
     private async void onSaveClicked(object sender, EventArgs e)
     {
@@ -33,18 +33,7 @@ public partial class AddQuestionPage : ContentPage
         };
 
         // Declare schedule time variable
-        DateTime scheduleTime;
-
-        if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
-        {
-            scheduleTime = TestscheduleTime;
-            question.IsDue = true;
-             
-        } else
-        {
-            scheduleTime = MyDatePicker.Date;
-
-        }
+        DateTime scheduleTime = SetSchedule();
 
         NotificationService.SendNotification("You have a question ready!", PromptEntry.Text, scheduleTime);
 
@@ -73,6 +62,21 @@ public partial class AddQuestionPage : ContentPage
             OffOnLabel.Text = "Off";
 
         }
+    }
+    private DateTime SetSchedule()
+    {
+        DateTime e;
+        if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
+        {
+            e = DateTime.Now.AddSeconds(10);
+
+        }
+        else
+        {
+            e = MyDatePicker.Date;
+
+        }
+        return e;
     }
 
    
