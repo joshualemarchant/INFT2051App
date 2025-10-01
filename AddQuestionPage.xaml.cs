@@ -9,8 +9,15 @@ public partial class AddQuestionPage : ContentPage
 	public AddQuestionPage()
 	{
 		InitializeComponent();
+        AskPermissions();
 	}
 
+
+    private async void AskPermissions()
+    {
+        PermissionStatus status = await Permissions.RequestAsync<Permissions.PostNotifications>();
+        Console.WriteLine("Notifications requested");
+    }
 
     private async void onSaveClicked(object sender, EventArgs e)
     {
