@@ -38,10 +38,10 @@ public partial class NotificationsPage : ContentPage
     {
         if (sender is Button button && button.CommandParameter is UserQuestion question)
         {
-            // No need to fetch the question again; you already have it
+            
             var questionId = question.ID;
 
-            // Navigate to the page and pass the ID
+            
             await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}");
         }
     }
