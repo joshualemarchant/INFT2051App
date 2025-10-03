@@ -13,10 +13,21 @@ public partial class AddQuestionPage : ContentPage
 	}
 
 
-    private async void AskPermissions()
+    private async Task<PermissionStatus> AskPermissions()
     {
         PermissionStatus status = await Permissions.RequestAsync<Permissions.PostNotifications>();
-        Console.WriteLine("Notifications requested");
+
+        if (status == PermissionStatus.Granted)
+            return status;
+
+        if (status == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.Android)
+        {
+            await DisplayAlert(
+                "Enable Notifications",
+                "EverFloat needs notifications to be activated in order to prompt you. Please turn them on in settings.",
+                "OK");
+        }
+        return status;
     }
 
     private async void onSaveClicked(object sender, EventArgs e)
