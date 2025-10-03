@@ -1,16 +1,33 @@
 namespace INFT2051App.Pages;
-
+[QueryProperty(nameof(QuestionId), "QuestionId")]
 public partial class AnswerQuestionPage : ContentPage
 {
-    public UserQuestion Question { get; set; }
-
-    public string UserAnswer  { get; set; }
-    public AnswerQuestionPage(UserQuestion question)
-	{
-		InitializeComponent();
-        Question = question; // keep reference
-        BindingContext = this; // bind UI to this page
+    private int _questionId;
+    public int QuestionId
+    {
+        get => _questionId;
+        set
+        {
+            _questionId = value;
+            LoadQuestion(value); // fetch from DB
+        }
     }
+
+    public UserQuestion Question { get; set; }
+    public string UserAnswer { get; set; }
+
+    public AnswerQuestionPage()
+    {
+        InitializeComponent();
+        BindingContext = this;
+    }
+
+    private async void LoadQuestion(int id)
+    {
+        Question = await App.Database.GetItemAsync<UserQuestion>(id);
+        OnPropertyChanged(nameof(Question));
+    }
+
     private async void OnEnterClicked(object sender, EventArgs e)
         //TODO more error handling
     {

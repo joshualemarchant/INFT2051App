@@ -7,10 +7,10 @@ public partial class NotificationsPage : ContentPage
 {
     private ObservableCollection<UserQuestion> DueQuestions { get; } = new();
     public NotificationsPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         DueQuestionsCollection.ItemsSource = DueQuestions;
-	}
+    }
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -38,7 +38,12 @@ public partial class NotificationsPage : ContentPage
     {
         if (sender is Button button && button.CommandParameter is UserQuestion question)
         {
-            await Navigation.PushAsync(new AnswerQuestionPage(question));
+            // No need to fetch the question again; you already have it
+            var questionId = question.ID;
+
+            // Navigate to the page and pass the ID
+            await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}");
         }
     }
 }
+    

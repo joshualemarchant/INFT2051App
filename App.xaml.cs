@@ -44,17 +44,13 @@ namespace INFT2051App
                 }
             }
         }
-        
+
         // Notification tapped behaviour (takes user directly to answer question page)
         private async void OnNotificationTapped(NotificationActionEventArgs e)
         {
             if (int.TryParse(e.Request.ReturningData, out int questionId))
             {
-                var question = await Database.GetItemAsync<UserQuestion>(questionId);
-                if (question != null)
-                {
-                    await Current.MainPage.Navigation.PushAsync(new AnswerQuestionPage(question));
-                }
+                await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}");
             }
         }
 
