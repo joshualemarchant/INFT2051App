@@ -1,14 +1,23 @@
-
 using Plugin.LocalNotification;
+
+
 
 namespace INFT2051App;
 
 public partial class AddQuestionPage : ContentPage
 {
     public bool TestingModeOn = false;
-	public AddQuestionPage()
+    public TimeSpan TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
+    public TimeSpan TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
+
+    
+    public DateTime CurrentDateTime { get; set; } = DateTime.Now;
+    public DateTime SelectedDate { get; set; } = DateTime.Now;
+
+    public AddQuestionPage()
 	{
 		InitializeComponent();
+        BindingContext = this;
         AskPermissions();
 	}
 
@@ -71,6 +80,13 @@ public partial class AddQuestionPage : ContentPage
         };
         await LocalNotificationCenter.Current.Show(scheduledNotification);
 
+        Console.WriteLine($"Notification scheduled:");
+        Console.WriteLine($"ID: {scheduledNotification.NotificationId}");
+        Console.WriteLine($"Title: {scheduledNotification.Title}");
+        Console.WriteLine($"Description: {scheduledNotification.Description}");
+        Console.WriteLine($"NotifyTime: {scheduledNotification.Schedule.NotifyTime}");
+        Console.WriteLine($"ReturningData: {scheduledNotification.ReturningData}");
+
         // Clear input
         PromptEntry.Text = string.Empty;
         AnswerEditor.Text = string.Empty;
@@ -94,13 +110,35 @@ public partial class AddQuestionPage : ContentPage
         }
     }
     private DateTime SetSchedule()
-    { 
+    {
+        TimeSpan randomTime = GetRandomTime(TimeStart, TimeEnd);
+
         if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
-         return DateTime.Now.AddSeconds(10);
+            return DateTime.Now.AddSeconds(10);
+
         else
-       return MyDatePicker.Date;
+
+       return MyDatePicker.Date + randomTime;
     }
-        
+
+    // TODO: Add better error handling for questions added after hours on same day
+    private TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
+    {
+        if (end <= start)
+            throw new ArgumentException("End time must be after start time");
+
+        // Total seconds between start and end
+        double totalSeconds = (end - start).TotalSeconds;
+
+        // Generate a random offset in seconds
+        Random random = new Random();
+        double randomSeconds = random.NextDouble() * totalSeconds;
+
+        // Return start + offset
+        return start + TimeSpan.FromSeconds(randomSeconds);
+    }
+   
+
 }
 
    

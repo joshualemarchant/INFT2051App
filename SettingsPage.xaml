@@ -8,5 +8,21 @@
             Text="Settings"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Label
+            Text="Prompting Hours:">
+            
+        </Label>
+        <TimePicker x:Name="UserStartTime"
+            Time="{Binding PromptHourStart, Mode=TwoWay}" />
+
+        <TimePicker x:Name="UserEndTime"
+            Time="{Binding PromptHourEnd, Mode=TwoWay}" />
+
+        <Button
+            Text="Save Times"
+            Clicked="OnSaveClicked"></Button>
+      
+         
     </VerticalStackLayout>
 </ContentPage>
