@@ -8,8 +8,7 @@ public partial class SettingsPage : ContentPage
 	{
         InitializeComponent();
         BindingContext = this;
-        UserStartTime.Time = Utilities.ConvertToTimeSpan("HourStart", "9:00");
-        UserEndTime.Time = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
+        DisplayPreferences();
     }
     //TODO: Add option for 24/7 prompting
     private void OnSaveClicked(object sender, EventArgs e)
@@ -32,6 +31,12 @@ public partial class SettingsPage : ContentPage
                 $"You will be prompted between the hours of {UserStartTime.Time} and {UserEndTime.Time}", 
                 "ok");
         }
+    }
+
+    private void DisplayPreferences()
+    {
+        UserStartTime.Time = Utilities.ConvertToTimeSpan("HourStart", "9:00");
+        UserEndTime.Time = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
     }
 
 }
