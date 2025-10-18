@@ -38,14 +38,14 @@
                              IsVisible="True">
             
             <Label Text="Select Time: "/>
-            <DatePicker x:Name="MyDatePicker"
-                        Date="{Binding SelectedDate}"
+            <DatePicker x:Name="MyDatePicker"                   
                         MinimumDate="{Binding CurrentDateTime}"
                         MaximumDate="12/31/2100"
                         Format="D"/>
         </StackLayout>
 
         <Button Text="Save" Clicked="onSaveClicked" />
+        
         
     </VerticalStackLayout>
 </ContentPage>

@@ -14,6 +14,13 @@
                    HorizontalOptions="Center"
                    Margin="0,0,0,20"/>
 
+            <SearchBar x:Name="FilterSearchBar"
+                       Placeholder="Search Questions..."
+                       TextChanged="OnTextChanged">
+                
+            </SearchBar>
+                       
+            
             <!--Display message if user has no questions-->
             <Label x:Name="NoQuestionsLabel"
                    Text="No questions yet!"
@@ -23,9 +30,9 @@
                    IsVisible="False"/>  
 
             <!-- Question list -->
-            
 
-                <CollectionView x:Name="QuestionsCollection"
+
+            <CollectionView x:Name="QuestionsCollection"
                             ItemsLayout="VerticalList"
                             SelectionMode="None">
 

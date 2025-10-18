@@ -1,4 +1,5 @@
 ﻿
+
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -8,11 +9,14 @@ namespace INFT2051App;
 public partial class MainPage : ContentPage
 {
     // Observable collection for UI binding
-    private ObservableCollection<UserQuestion> Questions { get; } = new();
+    private ObservableCollection<UserQuestion> allQuestions { get; } = new();
+
+    private ObservableCollection<UserQuestion> filteredQuestions = new();
     public MainPage()
     {
         InitializeComponent();
-        QuestionsCollection.ItemsSource = Questions;
+        QuestionsCollection.ItemsSource = allQuestions;
+        
     }
 
     protected override async void OnAppearing()
@@ -25,7 +29,7 @@ public partial class MainPage : ContentPage
     private async Task LoadQuestionsAsync()
     {
         var questions = await App.Database.GetItemsAsync<UserQuestion>();
-        Questions.Clear();
+        allQuestions.Clear();
 
         if (questions == null || !questions.Any())
         {
@@ -35,7 +39,10 @@ public partial class MainPage : ContentPage
         {
             NoQuestionsLabel.IsVisible = false;
             foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
-                Questions.Add(q);
+            {
+                allQuestions.Add(q);
+                
+            }
         }
     }
 
@@ -62,8 +69,32 @@ public partial class MainPage : ContentPage
                 await App.Database.DeleteItemAsync(question);
                 await LoadQuestionsAsync();
             }
-        }
-    
+    }
+    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        string searchText = e.NewTextValue?.Trim() ?? string.Empty;
 
-    
+        filteredQuestions.Clear();
+
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            QuestionsCollection.ItemsSource = allQuestions;
+        }
+        else
+        {
+            var matches = allQuestions
+             .Where(q => q.Prompt.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var q in matches)
+                filteredQuestions.Add(q);
+
+            QuestionsCollection.ItemsSource = filteredQuestions;
+        }
+    }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+        FilterSearchBar.Text = string.Empty;
+    }
 }

@@ -2,6 +2,7 @@ using Plugin.LocalNotification;
 
 
 
+
 namespace INFT2051App;
 
 public partial class AddQuestionPage : ContentPage
@@ -12,7 +13,7 @@ public partial class AddQuestionPage : ContentPage
 
     
     public DateTime CurrentDateTime { get; set; } = DateTime.Now;
-    public DateTime SelectedDate { get; set; } = DateTime.Now;
+    
 
     public AddQuestionPage()
 	{
@@ -41,9 +42,6 @@ public partial class AddQuestionPage : ContentPage
 
     private async void onSaveClicked(object sender, EventArgs e)
     {
-
-        //TODO: Add error handling for empty text values and change IsDue to 'false' once testing is done
-
         if (string.IsNullOrWhiteSpace(PromptEntry.Text) || string.IsNullOrWhiteSpace(AnswerEditor.Text))
         {
             await DisplayAlert("Error", "Input fields cannot be blank!!", "OK");
@@ -55,7 +53,7 @@ public partial class AddQuestionPage : ContentPage
         {
             Prompt = PromptEntry.Text,
             Answer = AnswerEditor.Text,
-            CreatedAt = DateTime.UtcNow,
+            CreatedAt = DateTime.Now,
             IsDue = false,
             IsAnswered = false
         };
@@ -65,6 +63,7 @@ public partial class AddQuestionPage : ContentPage
 
         await DisplayAlert("Saved", "Question saved successfully!", "OK");
 
+        
 
         // Schedule Notification
         var scheduledNotification = new NotificationRequest
@@ -78,6 +77,8 @@ public partial class AddQuestionPage : ContentPage
             },
             ReturningData = question.ID.ToString()
         };
+
+
         await LocalNotificationCenter.Current.Show(scheduledNotification);
 
         Console.WriteLine($"Notification scheduled:");
@@ -111,34 +112,16 @@ public partial class AddQuestionPage : ContentPage
     }
     private DateTime SetSchedule()
     {
-        TimeSpan randomTime = GetRandomTime(TimeStart, TimeEnd);
+        TimeSpan randomTime = Utilities.GetRandomTime(TimeStart, TimeEnd);
+        
 
         if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
             return DateTime.Now.AddSeconds(10);
-
         else
-
-       return MyDatePicker.Date + randomTime;
+        {
+            return MyDatePicker.Date + randomTime;
+        }
     }
-
-    // TODO: Add better error handling for questions added after hours on same day
-    private TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
-    {
-        if (end <= start)
-            throw new ArgumentException("End time must be after start time");
-
-        // Total seconds between start and end
-        double totalSeconds = (end - start).TotalSeconds;
-
-        // Generate a random offset in seconds
-        Random random = new Random();
-        double randomSeconds = random.NextDouble() * totalSeconds;
-
-        // Return start + offset
-        return start + TimeSpan.FromSeconds(randomSeconds);
-    }
-   
-
 }
 
    

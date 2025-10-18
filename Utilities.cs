@@ -12,5 +12,21 @@ namespace INFT2051App
 
             return y;
         }
+    
+     public static TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
+        {
+            if (end <= start)
+                throw new ArgumentException("End time must be after start time");
+
+            // Total seconds between start and end
+            double totalSeconds = (end - start).TotalSeconds;
+
+            // Generate a random offset in seconds
+            Random random = new Random();
+            double randomSeconds = random.NextDouble() * totalSeconds;
+
+            // Return start + offset
+            return start + TimeSpan.FromSeconds(randomSeconds);
+        }
     }
 }
