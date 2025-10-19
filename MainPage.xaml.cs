@@ -49,7 +49,7 @@ public partial class MainPage : ContentPage
 
     private void OnShowAnswerClicked(object sender, EventArgs  e)
     {
-        if (sender is Button btn && btn.Parent is VerticalStackLayout vstack)
+        if (sender is Button btn && btn.Parent is StackLayout vstack)
         {
             // Find the Answer StackLayout inside this question item
             var answerStack = vstack.Children.OfType<StackLayout>().FirstOrDefault();

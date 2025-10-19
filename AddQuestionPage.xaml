@@ -3,49 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.AddQuestionPage"
              Title="">
-    <VerticalStackLayout>
-        <Label Text="Question:" />
-        <Entry x:Name="PromptEntry" Placeholder="Enter your question" HeightRequest="100" />
 
-        <Label Text="Answer: " />
-        <Editor x:Name="AnswerEditor" Placeholder="Enter answer" HeightRequest="100" />
-        
-        <!--Testing Mode Option-->
-        <Label x:Name="TestOptionLabel"
-           Text="Test Mode"
-           FontSize="18"
-           HorizontalOptions="Center" />
-        
-        <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
-            
-            <!-- On/Off Label -->
-            <Label Text="Off"
-                   x:Name="OffOnLabel"
-               VerticalOptions="Center"
-               HorizontalOptions="Center" />
-        
-            <!--Toggle Switch-->
-            <Switch x:Name="ToggleSwitch"
-                IsToggled="False"
-                Toggled="TestSwitchToggled"
-                HorizontalOptions="Center" />
-        
-           
-        </HorizontalStackLayout>
+    <!-- ScrollView ensures content is scrollable if it exceeds screen height -->
+    <ContentView>
+        <VerticalStackLayout Spacing="20" Padding="15">
 
+            <!-- Question Section -->
+            <Border>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Question:" FontAttributes="Bold"/>
+                    <Entry x:Name="PromptEntry" Placeholder="Enter your question"/>
+                </VerticalStackLayout>
+            </Border>
 
-        <StackLayout x:Name="DateSelectionBox"
-                             IsVisible="True">
-            
-            <Label Text="Select Time: "/>
-            <DatePicker x:Name="MyDatePicker"                   
-                        MinimumDate="{Binding CurrentDateTime}"
-                        MaximumDate="12/31/2100"
-                        Format="D"/>
-        </StackLayout>
+            <!-- Answer Section -->
+            <Border>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Answer:" FontAttributes="Bold"/>
+                    <Editor x:Name="AnswerEditor" Placeholder="Enter answer"/>
+                </VerticalStackLayout>
+            </Border>
 
-        <Button Text="Save" Clicked="onSaveClicked" />
-        
-        
-    </VerticalStackLayout>
+            <!-- Test Mode Option -->
+            <Label x:Name="TestOptionLabel"
+                   Text="Test Mode"
+                   FontSize="18"
+                   HorizontalOptions="Center" 
+                   Padding="0,30,0,0"/>
+
+            <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="Off"
+                       x:Name="OffOnLabel"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+                <Switch x:Name="ToggleSwitch"
+                        IsToggled="False"
+                        Toggled="TestSwitchToggled"
+                        HorizontalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!-- Date Selection -->
+            <StackLayout x:Name="DateSelectionBox" IsVisible="True">
+                <Label Text="Select Time:" />
+                <DatePicker x:Name="MyDatePicker"                   
+                            MinimumDate="{Binding CurrentDateTime}"
+                            MaximumDate="12/31/2100"
+                            Format="D"/>
+            </StackLayout>
+
+            <!-- Save Button -->
+            <Button Text="Save" Clicked="onSaveClicked" Style="{StaticResource StyledButton}"/>
+
+        </VerticalStackLayout>
+    </ContentView>
+
 </ContentPage>

@@ -10,16 +10,15 @@
             <!-- Title -->
             <Label Text="Your Questions" 
                    FontSize="28" 
-                   FontAttributes="Bold" 
-                   HorizontalOptions="Center"
+                   HorizontalOptions="Start"
                    Margin="0,0,0,20"/>
 
-            <SearchBar x:Name="FilterSearchBar"
+            <Border>
+                <SearchBar x:Name="FilterSearchBar"
                        Placeholder="Search Questions..."
                        TextChanged="OnTextChanged">
-                
-            </SearchBar>
-                       
+                </SearchBar>
+            </Border>
             
             <!--Display message if user has no questions-->
             <Label x:Name="NoQuestionsLabel"
@@ -30,43 +29,39 @@
                    IsVisible="False"/>  
 
             <!-- Question list -->
-
-
             <CollectionView x:Name="QuestionsCollection"
                             ItemsLayout="VerticalList"
                             SelectionMode="None">
-
-                    <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
                         <DataTemplate>
                         <Border>
-                            <VerticalStackLayout>
+                            <VerticalStackLayout Style="{StaticResource DisplayBox}">
                                 <!--Question-->
-                                <Label Text="{Binding Prompt}"
-                                       Style="{StaticResource SubHeadline}" />
+                                    <Label Text="{Binding Prompt}"
+                                           Style="{StaticResource SubHeadline}"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalOptions="Start"
+                                           HorizontalTextAlignment="Start"/>
 
-                                <!--Show/hide answer button-->
-                                <Button Text="Show Answer"
-                                        BackgroundColor="Transparent"
-                                        TextColor="{AppThemeBinding Light=Black, Dark=White}"
-                                        Clicked="OnShowAnswerClicked" />
-                                
-                                
-                                <!--Uncomment for quick deletion while testing-->
-                                <Button
-                                        Text="Delete"
-                                        Clicked="OnDeleteAnswerClicked"/>
-                                
-                                <!-- Answer -->
-                                <StackLayout IsVisible="False" x:Name="AnswerStack">
-                                    <Label Text="{Binding Answer, StringFormat='A: {0}'}"
-                                           TextColor="{AppThemeBinding Light=#666666, Dark=#CCCCCC}"
-                                           LineBreakMode="WordWrap"/>
+                                <StackLayout Padding="0,20,0,20"
+                                             Orientation="Horizontal"
+                                             HorizontalOptions="Start">
 
-                                
+                                    <!--Answer-->
+                                    <Label Text="{Binding Answer}"/>
 
 
                                 </StackLayout>
-                                
+
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="End">
+                                    
+                                    <!--Uncomment for quick deletion while testing-->
+                                    <Button
+                                        Text="Delete"
+                                        Clicked="OnDeleteAnswerClicked"
+                                        Style="{StaticResource StyledButton}"/>
+                                </StackLayout>
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>

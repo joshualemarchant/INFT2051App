@@ -23,7 +23,7 @@
                     FontSize="14"
                     Text="{Binding UserAnswer, Mode=TwoWay}" />
 
-            <Button Text="Enter" Clicked="OnEnterClicked" />
+            <Button Text="Enter" Clicked="OnEnterClicked" Style="{StaticResource StyledButton}" />
 
         </VerticalStackLayout>
     </ScrollView>
