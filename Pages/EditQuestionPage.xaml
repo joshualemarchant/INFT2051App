@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="INFT2051App.Pages.EditQuestionPage"
+             Title="EditQuestionPage">
+    
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <!--Question-->
+            <Entry x:Name="NewQuestion">
+                
+            </Entry>
+
+            <Entry x:Name="NewAnswer">
+
+            </Entry>
+                
+            <Button Text="Save"
+                    Style="{StaticResource StyledButton}"
+                    Clicked="OnSaveClicked">
+                
+            </Button>
+
+            <Button
+                    Text="Delete"
+                    Clicked="OnDeleteAnswerClicked"
+                    Background="#fc7070"
+                    TextColor="White"
+                    Style="{StaticResource StyledButton}"/> 
+
+
+
+
+
+        </VerticalStackLayout>
+        </ScrollView>
+    
+</ContentPage>

@@ -1,8 +1,10 @@
 ﻿
 
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net.Security;
 
 namespace INFT2051App;
 
@@ -45,30 +47,35 @@ public partial class MainPage : ContentPage
             }
         }
     }
-
-
-    private void OnShowAnswerClicked(object sender, EventArgs  e)
+    private void OnShowAnswerClicked(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.Parent is StackLayout vstack)
-        {
-            // Find the Answer StackLayout inside this question item
-            var answerStack = vstack.Children.OfType<StackLayout>().FirstOrDefault();
-            if (answerStack != null)
-            {
-                answerStack.IsVisible = !answerStack.IsVisible;
-                btn.Text = answerStack.IsVisible ? "Hide Answer" : "Show Answer";
-            }
+        
+        var clickedButton = sender as Button;
+        if (clickedButton == null) return;
 
+        
+        if (clickedButton.Parent is not HorizontalStackLayout horizontalStack) return;
+        if (horizontalStack.Parent is not VerticalStackLayout verticalStack) return;
+
+       
+        if (verticalStack.Children.Count <= 1 || verticalStack.Children[1] is not Layout answerContainer) return;
+
+        
+        if (answerContainer.Children.Count <= 0 || answerContainer.Children[0] is not Label answerLabel) return;
+
+       
+        if (answerLabel.TextColor.ToHex().Equals(Colors.Transparent.ToHex(), StringComparison.OrdinalIgnoreCase))
+        {
+            
+            answerLabel.TextColor = Colors.White;
+            clickedButton.Text = "Hide Answer";
         }
-    }
-
-    private async void OnDeleteAnswerClicked(object sender, EventArgs e)
-    {
-        if (sender is Button btn && btn.BindingContext is UserQuestion question)
+        else
         {
-                await App.Database.DeleteItemAsync(question);
-                await LoadQuestionsAsync();
-            }
+            // Currently visible (White), so hide it.
+            answerLabel.TextColor = Colors.Transparent;
+            clickedButton.Text = "Show Answer";
+        }
     }
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -89,6 +96,18 @@ public partial class MainPage : ContentPage
                 filteredQuestions.Add(q);
 
             QuestionsCollection.ItemsSource = filteredQuestions;
+        }
+    }
+
+    private async void OnEditQuestionClicked(object sender, EventArgs e)
+    {
+        if (sender is Button button && button.CommandParameter is UserQuestion question)
+        {
+
+            var questionId = question.ID;
+
+
+            await Shell.Current.GoToAsync($"editquestionpage?QuestionId={questionId}");
         }
     }
 

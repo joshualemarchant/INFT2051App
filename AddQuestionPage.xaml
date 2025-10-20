@@ -4,22 +4,22 @@
              x:Class="INFT2051App.AddQuestionPage"
              Title="">
 
-    <!-- ScrollView ensures content is scrollable if it exceeds screen height -->
+    
     <ContentView>
         <VerticalStackLayout Spacing="20" Padding="15">
 
             <!-- Question Section -->
             <Border>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Question:" FontAttributes="Bold"/>
+                <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
+                    <Label Text="Question:" />
                     <Entry x:Name="PromptEntry" Placeholder="Enter your question"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Answer Section -->
             <Border>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Answer:" FontAttributes="Bold"/>
+                <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
+                    <Label Text="Answer:" />
                     <Editor x:Name="AnswerEditor" Placeholder="Enter answer"/>
                 </VerticalStackLayout>
             </Border>
@@ -42,15 +42,15 @@
                         HorizontalOptions="Center" />
             </HorizontalStackLayout>
 
-            <!-- Date Selection -->
-            <StackLayout x:Name="DateSelectionBox" IsVisible="True">
+            <!-- Date Selection -->                     
+            <StackLayout x:Name="DateSelectionBox" IsVisible="True" Padding="20">
                 <Label Text="Select Time:" />
                 <DatePicker x:Name="MyDatePicker"                   
                             MinimumDate="{Binding CurrentDateTime}"
                             MaximumDate="12/31/2100"
                             Format="D"/>
             </StackLayout>
-
+        
             <!-- Save Button -->
             <Button Text="Save" Clicked="onSaveClicked" Style="{StaticResource StyledButton}"/>
 

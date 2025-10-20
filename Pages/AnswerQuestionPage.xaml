@@ -10,12 +10,11 @@
             
             <!--Question-->
             <Label Text="{Binding Question.Prompt}"
-                   Style="{StaticResource Headline}" 
-                   Padding="0, 0, 0, 100"/>
+                   TextColor="White" 
+                   Style="{StaticResource Headline}"
+                   Padding="0, 30, 0, 100"/>
 
             <!--User Answer-->
-
-
             <Editor x:Name="AnswerEditor"
                     Placeholder="Type your answer here..."
                     AutoSize="TextChanges"

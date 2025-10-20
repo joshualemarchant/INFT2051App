@@ -48,20 +48,40 @@
                                              HorizontalOptions="Start">
 
                                     <!--Answer-->
-                                    <Label Text="{Binding Answer}"/>
-
-
-                                </StackLayout>
-
-                                <StackLayout Orientation="Horizontal"
-                                             HorizontalOptions="End">
                                     
-                                    <!--Uncomment for quick deletion while testing-->
-                                    <Button
-                                        Text="Delete"
-                                        Clicked="OnDeleteAnswerClicked"
-                                        Style="{StaticResource StyledButton}"/>
+                                        
+                                    <Label 
+                                           x:Name="AnswerLabel"
+                                           Text="{Binding Answer}"                                           
+                                           Background="Transparent"
+                                           TextColor="Transparent">
+                                    </Label>
+                                    
+                                    
                                 </StackLayout>
+                                
+                                <HorizontalStackLayout Spacing="40"
+                                                       HorizontalOptions="Center">
+                                    
+                                    <!--Show Answwer button-->
+                                    <Button
+                                        Text="Show Answer"
+                                        Clicked="OnShowAnswerClicked"
+                                        Style="{StaticResource StyledButton}"
+                                        WidthRequest="115"/>
+                                    <!--Edit Button-->
+                                    <Button Text="Edit"
+                                            Style="{StaticResource StyledButton}"
+                                            Clicked="OnEditQuestionClicked"                                           
+                                            CommandParameter="{Binding .}"
+                                            WidthRequest="115"/>
+                                    
+                                    
+                                    
+                                </HorizontalStackLayout>
+                                
+                                
+                                
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>

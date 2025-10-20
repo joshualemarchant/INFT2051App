@@ -2,17 +2,7 @@ namespace INFT2051App.Pages;
 [QueryProperty(nameof(QuestionId), "QuestionId")]
 public partial class AnswerQuestionPage : ContentPage
 {
-    private int _questionId;
-    public int QuestionId
-    {
-        get => _questionId;
-        set
-        {
-            _questionId = value;
-            LoadQuestion(value); // fetch from DB
-        }
-    }
-
+    public int QuestionId { get; set; }
     public UserQuestion Question { get; set; }
     public string UserAnswer { get; set; }
 
@@ -22,19 +12,20 @@ public partial class AnswerQuestionPage : ContentPage
         BindingContext = this;
     }
 
-    private async void LoadQuestion(int id)
+    protected override async void OnAppearing()
     {
-        Question = await App.Database.GetItemAsync<UserQuestion>(id);
+        base.OnAppearing();
+        Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId);
         OnPropertyChanged(nameof(Question));
     }
 
     private async void OnEnterClicked(object sender, EventArgs e)
-        //TODO more error handling
+    //TODO more error handling
     {
         if (string.IsNullOrWhiteSpace(UserAnswer))
         {
             await DisplayAlert("Error", "Please enter an answer before submitting.", "OK");
-            return; 
+            return;
         }
 
         if (Question.Answer.ToLower().Trim() == UserAnswer.ToLower().Trim())

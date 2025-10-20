@@ -32,6 +32,7 @@
                             
                             <!-- Optional action button -->
                                 <Button Text="Tap to answer"
+                                        Style="{StaticResource StyledButton}"
                                         Clicked="OnGoToAnswerQuestionPageClicked"
                                         CommandParameter="{Binding .}"/>
                             </VerticalStackLayout>

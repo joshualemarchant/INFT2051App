@@ -8,6 +8,7 @@ namespace INFT2051App
         {
             InitializeComponent();
             Routing.RegisterRoute("answerpage", typeof(AnswerQuestionPage));
+            Routing.RegisterRoute("editquestionpage", typeof(EditQuestionPage));
 
         }
     }
