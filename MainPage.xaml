@@ -48,21 +48,18 @@
                                              HorizontalOptions="Start">
 
                                     <!--Answer-->
-                                    
-                                        
                                     <Label 
                                            x:Name="AnswerLabel"
                                            Text="{Binding Answer}"                                           
                                            Background="Transparent"
                                            TextColor="Transparent">
                                     </Label>
-                                    
-                                    
                                 </StackLayout>
-                                
-                                <HorizontalStackLayout Spacing="40"
-                                                       HorizontalOptions="Center">
-                                    
+
+                                <HorizontalStackLayout 
+                                    Spacing="40"                                                      
+                                    HorizontalOptions="Center">
+
                                     <!--Show Answwer button-->
                                     <Button
                                         Text="Show Answer"
@@ -75,13 +72,7 @@
                                             Clicked="OnEditQuestionClicked"                                           
                                             CommandParameter="{Binding .}"
                                             WidthRequest="115"/>
-                                    
-                                    
-                                    
                                 </HorizontalStackLayout>
-                                
-                                
-                                
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>

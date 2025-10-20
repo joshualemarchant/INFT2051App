@@ -1,29 +1,25 @@
 using Plugin.LocalNotification;
 
-
-
-
 namespace INFT2051App;
 
 public partial class AddQuestionPage : ContentPage
 {
+    // Testing mode automatically schedules Question prompt/notification prompt to be fired 10 seconds after it was created
     public bool TestingModeOn = false;
+
+    // Variables for users question prompting hours that are stored in preferences. TimeSpan type is not supported hence the parsing method.
     public TimeSpan TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
-    public TimeSpan TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
+    public TimeSpan TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00"); 
 
-    
-    public DateTime CurrentDateTime { get; set; } = DateTime.Now;
-    
-
+    public DateTime CurrentDateTime { get; set; } = DateTime.Now; // I used this to set the minimum date in DatePicker component 
     public AddQuestionPage()
 	{
 		InitializeComponent();
         BindingContext = this;
-        AskPermissions();
+        AskPermissions(); // requests notification permissions from user
 	}
-
-
-    private async Task<PermissionStatus> AskPermissions()
+    
+    private async Task<PermissionStatus> AskPermissions() // Method for requesting notification permission
     {
         PermissionStatus status = await Permissions.RequestAsync<Permissions.PostNotifications>();
 
@@ -40,15 +36,17 @@ public partial class AddQuestionPage : ContentPage
         return status;
     }
 
+    // Save button behaviour method
     private async void onSaveClicked(object sender, EventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(PromptEntry.Text) || string.IsNullOrWhiteSpace(AnswerEditor.Text))
+        // Error handling for invalid input
+        if (string.IsNullOrWhiteSpace(PromptEntry.Text) || string.IsNullOrWhiteSpace(AnswerEditor.Text)) 
         {
             await DisplayAlert("Error", "Input fields cannot be blank!!", "OK");
             return;
         }
 
-        // Question Creation
+        // Question object creation 
         var question = new UserQuestion
         {
             Prompt = PromptEntry.Text,
@@ -62,9 +60,7 @@ public partial class AddQuestionPage : ContentPage
         await App.Database.SaveItemAsync(question);
 
         await DisplayAlert("Saved", "Question saved successfully!", "OK");
-
-        
-
+     
         // Schedule Notification
         var scheduledNotification = new NotificationRequest
         {
@@ -73,13 +69,14 @@ public partial class AddQuestionPage : ContentPage
             Description = PromptEntry.Text,
             Schedule =
             {
-                NotifyTime = SetSchedule()
+                NotifyTime = SetSchedule() // Method handles scheduling logic
             },
-            ReturningData = question.ID.ToString()
+            ReturningData = question.ID.ToString() 
         };
 
-
         await LocalNotificationCenter.Current.Show(scheduledNotification);
+
+        // I put this here for testing scheduled notifications 
 
         Console.WriteLine($"Notification scheduled:");
         Console.WriteLine($"ID: {scheduledNotification.NotificationId}");
@@ -93,33 +90,33 @@ public partial class AddQuestionPage : ContentPage
         AnswerEditor.Text = string.Empty;
     }
 
+    // Test switch behaviour
     private void TestSwitchToggled (object sender, ToggledEventArgs e)
     {
-        if (e.Value) // Switch is ON
+        if (e.Value) // Hides data selection box if on
         {
             TestingModeOn = true;
             DateSelectionBox.IsVisible = false;
             OffOnLabel.Text = "On";
-
         }
-        else // Switch is OFF
+        else 
         {
             TestingModeOn = false;
             DateSelectionBox.IsVisible = true;
             OffOnLabel.Text = "Off";
-
         }
     }
+
+    // Scheduling method
     private DateTime SetSchedule()
     {
-        TimeSpan randomTime = Utilities.GetRandomTime(TimeStart, TimeEnd);
-        
-
+        TimeSpan randomTime = Utilities.GetRandomTime(TimeStart, TimeEnd); // Get a random TimeSpan value in between user preference times
+       
         if (TestingModeOn) // if test mode is on, schedule is set to 10 seconds after question creation
             return DateTime.Now.AddSeconds(10);
         else
         {
-            return MyDatePicker.Date + randomTime;
+            return MyDatePicker.Date + randomTime; // Return selected date from date picker and random time
         }
     }
 }
