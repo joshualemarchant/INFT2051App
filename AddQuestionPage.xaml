@@ -53,7 +53,6 @@
         
             <!-- Save Button -->
             <Button Text="Save" Clicked="onSaveClicked" Style="{StaticResource StyledButton}"/>
-
         </VerticalStackLayout>
     </ContentView>
 

@@ -7,10 +7,9 @@ public partial class AddQuestionPage : ContentPage
     // Testing mode automatically schedules Question prompt/notification prompt to be fired 10 seconds after it was created
     public bool TestingModeOn = false;
 
-    // Variables for users question prompting hours that are stored in preferences. TimeSpan type is not supported hence the parsing method.
-    public TimeSpan TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
-    public TimeSpan TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00"); 
-
+    // Variables for user's question prompting hours that are stored in preferences.
+    public TimeSpan TimeStart;
+    public TimeSpan TimeEnd;
     public DateTime CurrentDateTime { get; set; } = DateTime.Now; // I used this to set the minimum date in DatePicker component 
     public AddQuestionPage()
 	{
@@ -18,7 +17,15 @@ public partial class AddQuestionPage : ContentPage
         BindingContext = this;
         AskPermissions(); // requests notification permissions from user
 	}
-    
+
+    // Sets variables to preference value. Called on every page visit in case of preferences being updated
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
+        TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00");      
+    }
+
     private async Task<PermissionStatus> AskPermissions() // Method for requesting notification permission
     {
         PermissionStatus status = await Permissions.RequestAsync<Permissions.PostNotifications>();

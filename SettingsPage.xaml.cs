@@ -21,13 +21,13 @@ public partial class SettingsPage : ContentPage
             // Set variables with input Time picker values and parse to string to have them stored in preferences
             string start = UserStartTime.Time.ToString();
             string end = UserEndTime.Time.ToString();
-
+           
             // Store in preferences
             Preferences.Default.Set("HourStart", start);
             Preferences.Default.Set("HourEnd", end);
 
             DisplayAlert("Attention",
-                $"You will be prompted between the hours of {UserStartTime.Time} and {UserEndTime.Time}",
+                $"You will be prompted between the hours of {start} and {end}",
                 "ok");
         }
     }
