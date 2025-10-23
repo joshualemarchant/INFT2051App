@@ -5,17 +5,18 @@
              Title="">
     
         <ScrollView>
-            <VerticalStackLayout>
-                
-                
-
-                <!--Question-->
+        <VerticalStackLayout>
+            
+            <!--Edit Question fields-->
             <Entry x:Name="NewQuestion"></Entry>
             <Entry x:Name="NewAnswer"></Entry>
 
-            <HorizontalStackLayout Spacing="30"
-                                   HorizontalOptions="Center"
-                                   Padding="0,100,0,0">
+            <HorizontalStackLayout 
+                Spacing="30"                                   
+                HorizontalOptions="Center"
+                Padding="0,100,0,0">
+                
+                <!--Delete Button-->
                 <Button
                         Text="Delete"
                         Clicked="OnDeleteAnswerClicked"
@@ -23,7 +24,8 @@
                         TextColor="White"
                         Style="{StaticResource StyledButton}"
                         WidthRequest="120"/>
-
+                
+                <!--Save button-->
                 <Button Text="Save"
                         Style="{StaticResource StyledButton}"
                         Clicked="OnSaveClicked"

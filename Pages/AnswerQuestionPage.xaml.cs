@@ -1,5 +1,7 @@
 namespace INFT2051App.Pages;
 [QueryProperty(nameof(QuestionId), "QuestionId")]
+
+// TODO: Add more comments
 public partial class AnswerQuestionPage : ContentPage
 {
     public int QuestionId { get; set; }
@@ -20,7 +22,7 @@ public partial class AnswerQuestionPage : ContentPage
     }
 
     private async void OnEnterClicked(object sender, EventArgs e)
-    //TODO more error handling
+    
     {
         if (string.IsNullOrWhiteSpace(UserAnswer))
         {

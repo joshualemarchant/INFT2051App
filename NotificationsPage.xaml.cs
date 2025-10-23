@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace INFT2051App;
 
+// TODO: Add pull to refresh feature
 public partial class NotificationsPage : ContentPage
 {
     private ObservableCollection<UserQuestion> DueQuestions { get; } = new(); // Collection to store questions that are due

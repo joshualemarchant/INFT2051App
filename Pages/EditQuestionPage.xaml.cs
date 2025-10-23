@@ -1,9 +1,9 @@
 
-
-using System.Threading.Tasks;
-
 namespace INFT2051App.Pages;
+
 [QueryProperty(nameof(QuestionId), "QuestionId")]
+
+// TODO: Add more comments
 public partial class EditQuestionPage : ContentPage
 {
     public int QuestionId { get; set; }

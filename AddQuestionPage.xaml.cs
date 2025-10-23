@@ -88,7 +88,7 @@ public partial class AddQuestionPage : ContentPage
             {
                 NotifyTime = ScheduleTime 
             },
-            ReturningData = question.ID.ToString() 
+            ReturningData = question.ID.ToString() // Parse ID to string so it can be stored in notification returning data
         };
 
         await LocalNotificationCenter.Current.Show(scheduledNotification);

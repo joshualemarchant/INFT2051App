@@ -22,7 +22,8 @@
                     FontSize="14"
                     Text="{Binding UserAnswer, Mode=TwoWay}"
                     TextChanged="UpdateEntryButtonColour"/>
-
+            
+            <!--Submit Question Button-->
             <Button x:Name="EnterButton" 
                     Text="Enter" 
                     Clicked="OnEnterClicked" 

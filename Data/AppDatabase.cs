@@ -9,6 +9,7 @@ public class AppDatabase
     public AppDatabase()
     {
     }
+    // CRUD methods are combination of AI generated code and examples from documentation at https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0#access-data 
 
     // Initialize the database for a given model type
     public async Task Init<T>() where T : new()

@@ -1,9 +1,9 @@
-﻿
-
-namespace INFT2051App
+﻿namespace INFT2051App
 {
+    // I put these methods in a Utilities class to keep the AddQuestionPage file bit cleaner
     internal class Utilities
     {
+        // This method is used to get the prompting hour values stored in preferences as a string and return them as TimeSpan values
         public static TimeSpan ConvertToTimeSpan(string key, string defaultValue)
         {
             string x = Preferences.Default.Get(key, defaultValue);
@@ -13,6 +13,7 @@ namespace INFT2051App
             return y;
         }
     
+        // AI generated method that returns a random TimeSpan value
         public static TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
         {
             if (end <= start)

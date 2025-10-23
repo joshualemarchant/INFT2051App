@@ -7,6 +7,8 @@ namespace INFT2051App
         public AppShell()
         {
             InitializeComponent();
+
+            // Route registration for shell navigation methods
             Routing.RegisterRoute("answerpage", typeof(AnswerQuestionPage));
             Routing.RegisterRoute("editquestionpage", typeof(EditQuestionPage));
 
