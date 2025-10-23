@@ -20,9 +20,14 @@
                     AutoSize="TextChanges"
                     HeightRequest="80"
                     FontSize="14"
-                    Text="{Binding UserAnswer, Mode=TwoWay}" />
+                    Text="{Binding UserAnswer, Mode=TwoWay}"
+                    TextChanged="UpdateEntryButtonColour"/>
 
-            <Button Text="Enter" Clicked="OnEnterClicked" Style="{StaticResource StyledButton}" />
+            <Button x:Name="EnterButton" 
+                    Text="Enter" 
+                    Clicked="OnEnterClicked" 
+                    Style="{StaticResource GreyButton}"
+                    />
 
         </VerticalStackLayout>
     </ScrollView>

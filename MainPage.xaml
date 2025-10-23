@@ -57,7 +57,7 @@
                                 </StackLayout>
 
                                 <HorizontalStackLayout 
-                                    Spacing="40"                                                      
+                                    Spacing="70"                                                      
                                     HorizontalOptions="Center">
 
                                     <!--Show Answwer button-->

@@ -44,4 +44,17 @@ public partial class AnswerQuestionPage : ContentPage
             await Navigation.PopAsync();
         }
     }
+
+    public void UpdateEntryButtonColour(object sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(AnswerEditor.Text))
+        {
+            EnterButton.Background = (Color)Application.Current.Resources["Gray500"];
+        }
+        else
+        {
+            EnterButton.Background = (Color)Application.Current.Resources["Secondary"];
+        }
+
+    }
 }

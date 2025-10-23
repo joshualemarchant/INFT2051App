@@ -7,20 +7,28 @@
     
     <ContentView>
         <VerticalStackLayout Spacing="20" Padding="15">
+            <Label Text="Enter a Question and Answer prompt below and tell us how long to wait before we quiz you on it."
+                   TextColor="#aeaeae"
+                   Padding="15"
+                   HorizontalTextAlignment="Center">
+                
+            </Label>
 
             <!-- Question Section -->
             <Border>
                 <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
-                    <Label Text="Question:" />
-                    <Entry x:Name="PromptEntry" Placeholder="Enter your question"/>
+                    <Label Text="" />
+                    <Entry x:Name="PromptEntry" Placeholder="Question:"
+                           TextChanged="UpdateSaveAnswerButtonColour"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Answer Section -->
             <Border>
                 <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
-                    <Label Text="Answer:" />
-                    <Editor x:Name="AnswerEditor" Placeholder="Enter answer"/>
+                    <Label Text="" />
+                    <Editor x:Name="AnswerEditor" Placeholder="Answer:"
+                            TextChanged="UpdateSaveAnswerButtonColour"/>
                 </VerticalStackLayout>
             </Border>
 
@@ -42,17 +50,19 @@
                         HorizontalOptions="Center" />
             </HorizontalStackLayout>
 
-            <!-- Date Selection -->                     
-            <StackLayout x:Name="DateSelectionBox" IsVisible="True" Padding="20">
-                <Label Text="Select Time:" />
+            <!-- Date Selection -->
+            <Border x:Name="DateBorder" IsVisible="True">
+                <StackLayout x:Name="DateSelectionBox" IsVisible="True" Padding="20" Style="{StaticResource DisplayBox}">
+                <Label Text="Ask me this question on:" />
                 <DatePicker x:Name="MyDatePicker"                   
                             MinimumDate="{Binding CurrentDateTime}"
                             MaximumDate="12/31/2100"
                             Format="D"/>
             </StackLayout>
+            </Border>
         
             <!-- Save Button -->
-            <Button Text="Save" Clicked="onSaveClicked" Style="{StaticResource StyledButton}"/>
+            <Button x:Name="SaveButton" Text="Save" Clicked="onSaveClicked" Style="{StaticResource GreyButton}"/>
         </VerticalStackLayout>
     </ContentView>
 

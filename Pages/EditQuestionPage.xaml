@@ -2,37 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.Pages.EditQuestionPage"
-             Title="EditQuestionPage">
+             Title="">
     
         <ScrollView>
             <VerticalStackLayout>
+                
+                
 
                 <!--Question-->
-            <Entry x:Name="NewQuestion">
-                
-            </Entry>
+            <Entry x:Name="NewQuestion"></Entry>
+            <Entry x:Name="NewAnswer"></Entry>
 
-            <Entry x:Name="NewAnswer">
+            <HorizontalStackLayout Spacing="30"
+                                   HorizontalOptions="Center"
+                                   Padding="0,100,0,0">
+                <Button
+                        Text="Delete"
+                        Clicked="OnDeleteAnswerClicked"
+                        Background="#fc7070"
+                        TextColor="White"
+                        Style="{StaticResource StyledButton}"
+                        WidthRequest="120"/>
 
-            </Entry>
-                
-            <Button Text="Save"
-                    Style="{StaticResource StyledButton}"
-                    Clicked="OnSaveClicked">
-                
-            </Button>
-
-            <Button
-                    Text="Delete"
-                    Clicked="OnDeleteAnswerClicked"
-                    Background="#fc7070"
-                    TextColor="White"
-                    Style="{StaticResource StyledButton}"/> 
-
-
-
-
-
+                <Button Text="Save"
+                        Style="{StaticResource StyledButton}"
+                        Clicked="OnSaveClicked"
+                        WidthRequest="120"/>
+            </HorizontalStackLayout>    
         </VerticalStackLayout>
         </ScrollView>
     

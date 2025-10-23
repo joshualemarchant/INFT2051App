@@ -13,7 +13,7 @@ namespace INFT2051App
             return y;
         }
     
-     public static TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
+        public static TimeSpan GetRandomTime(TimeSpan start, TimeSpan end)
         {
             if (end <= start)
                 throw new ArgumentException("End time must be after start time");
@@ -27,6 +27,6 @@ namespace INFT2051App
 
             // Return start + offset
             return start + TimeSpan.FromSeconds(randomSeconds);
-        }
+        }   
     }
 }

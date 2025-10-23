@@ -23,7 +23,7 @@ public partial class AddQuestionPage : ContentPage
     {
         base.OnAppearing();
         TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
-        TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00");      
+        TimeEnd = Utilities.ConvertToTimeSpan("HourEnd", "17:00");       
     }
 
     private async Task<PermissionStatus> AskPermissions() // Method for requesting notification permission
@@ -63,6 +63,16 @@ public partial class AddQuestionPage : ContentPage
             IsAnswered = false
         };
 
+        DateTime ScheduleTime = SetSchedule(); // Method handles scheduling logic
+
+        // Error handling if notification time slot has already passed
+        if (ScheduleTime <= DateTime.Now)
+        {
+            await DisplayAlert("Attention", "Your selected hours for prompting have already passed for today. " +
+                "Please select a different date or change your prompting hours in settings", "Ok");
+            return;
+        }
+
         // Save question
         await App.Database.SaveItemAsync(question);
 
@@ -76,7 +86,7 @@ public partial class AddQuestionPage : ContentPage
             Description = PromptEntry.Text,
             Schedule =
             {
-                NotifyTime = SetSchedule() // Method handles scheduling logic
+                NotifyTime = ScheduleTime 
             },
             ReturningData = question.ID.ToString() 
         };
@@ -103,13 +113,14 @@ public partial class AddQuestionPage : ContentPage
         if (e.Value) // Hides data selection box if on
         {
             TestingModeOn = true;
-            DateSelectionBox.IsVisible = false;
+            DateSelectionBox.IsVisible = DateBorder.IsVisible = false;
             OffOnLabel.Text = "On";
+            DisplayAlert("Attention", "Test mode activated. You'll be notified 10 seconds after saving the question.", "Ok");
         }
         else 
         {
             TestingModeOn = false;
-            DateSelectionBox.IsVisible = true;
+            DateSelectionBox.IsVisible = DateBorder.IsVisible = true;
             OffOnLabel.Text = "Off";
         }
     }
@@ -124,6 +135,19 @@ public partial class AddQuestionPage : ContentPage
         else
         {
             return MyDatePicker.Date + randomTime; // Return selected date from date picker and random time
+        }
+    }
+
+    // Dynamic save button colour behaviour
+    private void UpdateSaveAnswerButtonColour(object sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(PromptEntry.Text) || string.IsNullOrWhiteSpace(AnswerEditor.Text))
+        {
+            SaveButton.Background = (Color)Application.Current.Resources["Gray500"];
+        }
+        else
+        {
+            SaveButton.Background = (Color)Application.Current.Resources["Secondary"];
         }
     }
 }
