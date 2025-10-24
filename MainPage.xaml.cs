@@ -9,6 +9,8 @@ public partial class MainPage : ContentPage
     private ObservableCollection<UserQuestion> allQuestions { get; } = new(); // Collection for all questions in Database
 
     private ObservableCollection<UserQuestion> filteredQuestions = new(); // Collection for filtered questions
+
+    private ObservableCollection<UserQuestion> recurringQuestions = new(); // Collection for recurring questions
     public MainPage()
     {
         InitializeComponent();
@@ -19,6 +21,7 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
         await LoadQuestionsAsync(); // Loads questions when page is visited
+        await LoadRecurringQuestionsAsync();
       
     }
 
@@ -37,6 +40,7 @@ public partial class MainPage : ContentPage
             NoQuestionsLabel.IsVisible = false;
             foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
             {
+                if (q.IsAnswered == false)
                 allQuestions.Add(q); // Adds all questions to observable collection variable in order newest to oldest
                 
             }
@@ -97,6 +101,38 @@ public partial class MainPage : ContentPage
         }
     }
 
+    private async Task LoadRecurringQuestionsAsync()
+    {
+        var questions = await App.Database.GetItemsAsync<UserQuestion>(); // Get questions from DB
+        recurringQuestions.Clear(); // Clear collection
+
+        if (questions == null || !questions.Any())
+        {
+            return;
+        }
+        else
+        {            
+            foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
+            {
+                if (q.IsAnswered == true)
+                recurringQuestions.Add(q); // Adds all recurring questions to observable collection variable in order of newest to oldest
+            }           
+        }
+    }
+
+    public void SwitchToggled(object sender, ToggledEventArgs e)
+    {
+        if (e.Value)
+        {
+            QuestionsCollection.ItemsSource = recurringQuestions;
+        }
+        else
+        {
+            QuestionsCollection.ItemsSource = allQuestions;
+        }
+    }
+        
+ 
     // Clears left over input in search bar if user leaves page
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
     {

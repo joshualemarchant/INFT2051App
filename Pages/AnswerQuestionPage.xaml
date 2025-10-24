@@ -29,7 +29,6 @@
                     Clicked="OnEnterClicked" 
                     Style="{StaticResource GreyButton}"
                     />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

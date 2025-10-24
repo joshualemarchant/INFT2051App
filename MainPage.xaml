@@ -19,14 +19,26 @@
                        TextChanged="OnTextChanged">
                 </SearchBar>
             </Border>
-            
+
+            <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                
+                <Label Text="Show Recurring Questions"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" /> 
+                
+                <Switch x:Name="ToggleSwitch"
+                        IsToggled="False"
+                        Toggled="SwitchToggled"
+                        HorizontalOptions="Center" />  
+            </HorizontalStackLayout>
+
             <!--Display message if user has no questions-->
             <Label x:Name="NoQuestionsLabel"
                    Text="No questions yet!"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
                    Margin="0, 200, 0, 0"
-                   IsVisible="False"/>  
+                   IsVisible="False"/>
 
             <!-- Question list -->
             <CollectionView x:Name="QuestionsCollection"

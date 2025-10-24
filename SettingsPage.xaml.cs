@@ -3,7 +3,8 @@
 namespace INFT2051App;
 
 public partial class SettingsPage : ContentPage
-{  
+{
+    
     public SettingsPage()
 	{
         InitializeComponent();
@@ -36,14 +37,18 @@ public partial class SettingsPage : ContentPage
 
     private void RecurringQuestionsSwitchToggled(object sender, ToggledEventArgs e)
     {
-        if (e.Value) // Hides data selection box if on
+        if (e.Value) 
         {                     
             OffOnLabel.Text = "On";
-            
+            RecQuestionsHint.IsVisible = true;
+            Preferences.Default.Set("RecurringQuestionsIsOn", true);           
         }
         else
-        {           
+        {
+            // TODO: Add a way to cascade delete stored recurring questions when this is turned off
             OffOnLabel.Text = "Off";
+            RecQuestionsHint.IsVisible = false;
+            Preferences.Default.Set("RecurringQuestionsIsOn", false);
         }
     }
 
@@ -51,5 +56,6 @@ public partial class SettingsPage : ContentPage
     {
         UserStartTime.Time = Utilities.ConvertToTimeSpan("HourStart", "9:00");
         UserEndTime.Time = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
+        ToggleSwitch.IsToggled = Preferences.Default.Get("RecurringQuestionsIsOn", false);
     }
 }

@@ -17,25 +17,26 @@
             
         </Label>
         <Border Style="{StaticResource DisplayBox}">
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" >
-            
-        <TimePicker x:Name="UserStartTime"
-                    Time="{Binding PromptHourStart, Mode=TwoWay}" />
-                    
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" >
 
-            <Label Text="and"
-                   Margin="0,12,0,0"> 
-                
-            </Label>
-            
-        <TimePicker x:Name="UserEndTime"
+                <TimePicker x:Name="UserStartTime"
+                    Time="{Binding PromptHourStart, Mode=TwoWay}" />
+
+                <Label Text="and" Margin="0,12,0,0"></Label>
+
+                <TimePicker x:Name="UserEndTime"
                     Time="{Binding PromptHourEnd, Mode=TwoWay}" />
-                   
-        </HorizontalStackLayout>
+            </HorizontalStackLayout>
         </Border>
+        
+        <Button
+                Text="Save times"
+                Clicked="OnSaveClicked"
+                Style="{StaticResource StyledButton}"/> 
 
         <Label Text="Recurring Questions:"
-               HorizontalOptions="Center">
+               HorizontalOptions="Center"
+               Padding="0,60,0,0">
         </Label>
 
         <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
@@ -45,15 +46,15 @@
              VerticalOptions="Center"
              HorizontalOptions="Center" />
             
-            <Switch x:Name="ToggleSwitch"
-              IsToggled="False"
+            <Switch x:Name="ToggleSwitch"              
               Toggled="RecurringQuestionsSwitchToggled"
               HorizontalOptions="Center" />
         </HorizontalStackLayout>
         
-        <Button
-            Text="Save Times"
-            Clicked="OnSaveClicked"
-            Style="{StaticResource StyledButton}"/>
+        <Label x:Name="RecQuestionsHint" 
+               Text="With Recurring questions on, we'll re-ask you a question at some point after you've answered it."
+               TextColor="#aeaeae"
+               Padding="15"
+               HorizontalTextAlignment="Center"/>
     </VerticalStackLayout>
 </ContentPage>

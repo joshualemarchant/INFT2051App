@@ -1,3 +1,6 @@
+
+using Plugin.LocalNotification;
+
 namespace INFT2051App.Pages;
 [QueryProperty(nameof(QuestionId), "QuestionId")]
 
@@ -8,6 +11,7 @@ public partial class AnswerQuestionPage : ContentPage
     public UserQuestion Question { get; set; }
     public string UserAnswer { get; set; }
 
+    public bool RecurringQuestionsIsOn;
     public AnswerQuestionPage()
     {
         InitializeComponent();
@@ -18,7 +22,17 @@ public partial class AnswerQuestionPage : ContentPage
     {
         base.OnAppearing();
         Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId); // Get question from DB
-        OnPropertyChanged(nameof(Question)); // Set local variable to question fetched from DB
+        if (Question == null)
+        {
+            // TODO: Find way to delete scheduled notification instead of displaying this error
+            await DisplayAlert("Error", "This question no longer exists", "Ok");
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            OnPropertyChanged(nameof(Question)); // Set local variable to question fetched from DB
+            RecurringQuestionsIsOn = Preferences.Default.Get("RecurringQuestionsIsOn", false);
+        }
     }
 
     private async void OnEnterClicked(object sender, EventArgs e)
@@ -34,19 +48,41 @@ public partial class AnswerQuestionPage : ContentPage
         // Check if answer is corect
         if (Question.Answer.ToLower().Trim() == UserAnswer.ToLower().Trim())
         {
-            Question.IsAnswered = true;
             await DisplayAlert("Result", "Correct!", "Ok");
+            Question.IsAnswered = true;
+            Question.IsDue = false;
+            await App.Database.SaveItemAsync(Question);
         }
         else
         {
             await DisplayAlert("Result", "Incorrect!", "Try Again");
         }
 
-        // Delete question if correct
+        
         if (Question.IsAnswered)
         {
-            await App.Database.DeleteItemAsync(Question);
-            await Navigation.PopAsync();
+            if(RecurringQuestionsIsOn)
+            {               
+                var scheduledNotification = new NotificationRequest
+                {
+                    NotificationId = Question.ID,
+                    Title = "You have a question ready!",
+                    Description = Question.Prompt,
+                    Schedule =
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(15)
+                },
+                    ReturningData = Question.ID.ToString() // Parse ID to string so it can be stored in notification returning data
+                };
+
+                await LocalNotificationCenter.Current.Show(scheduledNotification);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await App.Database.DeleteItemAsync(Question);
+                await Navigation.PopAsync();
+            }
         }
     }
 
