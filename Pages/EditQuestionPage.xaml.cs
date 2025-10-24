@@ -1,4 +1,6 @@
 
+using Plugin.LocalNotification;
+
 namespace INFT2051App.Pages;
 
 [QueryProperty(nameof(QuestionId), "QuestionId")]
@@ -51,12 +53,16 @@ public partial class EditQuestionPage : ContentPage
     private async void OnDeleteAnswerClicked(object sender, EventArgs e)
     {
         bool answer = await DisplayAlert("Attention", "Are you sure you want to delete this question?", "Yes", "No");
-
+        
         if (answer)
         {
-            await App.Database.DeleteItemAsync(currentQuestion);
+            await Utilities.ClearNotification(currentQuestion.ID); // Clears pending notification for question thats being deleted
+
+            await App.Database.DeleteItemAsync(currentQuestion); // Delete question from db
+
             await DisplayAlert("Attention", "Question deleted!", "OK");
-            await Shell.Current.GoToAsync("..");
+
+            await Shell.Current.GoToAsync(".."); // Navigate back
         }
         else
         {
@@ -64,6 +70,5 @@ public partial class EditQuestionPage : ContentPage
         }
         
     }
-
-
+   
 }

@@ -3,21 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.SettingsPage"
              Title="">
+    <ScrollView>
     <VerticalStackLayout>
         <Label 
             Text="Settings"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
-            Padding="0,0,0,70"
+            Padding="0,0,0,40"
             Style="{StaticResource Headline}"/>
 
-        <Label
-            Text="Notify me between:"
-            HorizontalOptions="Center">
-            
-        </Label>
+        <!--Prompting Hours-->
         <Border Style="{StaticResource DisplayBox}">
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" >
+            <StackLayout>
+                <Label
+                Text="Notify me between:"
+                HorizontalOptions="Center"
+                Padding="0,0,0,20">
+                </Label>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" Padding="0,0,0,30">
 
                 <TimePicker x:Name="UserStartTime"
                     Time="{Binding PromptHourStart, Mode=TwoWay}" />
@@ -27,34 +31,52 @@
                 <TimePicker x:Name="UserEndTime"
                     Time="{Binding PromptHourEnd, Mode=TwoWay}" />
             </HorizontalStackLayout>
-        </Border>
         
-        <Button
+            <Button
                 Text="Save times"
                 Clicked="OnSaveClicked"
-                Style="{StaticResource StyledButton}"/> 
-
-        <Label Text="Recurring Questions:"
-               HorizontalOptions="Center"
-               Padding="0,60,0,0">
-        </Label>
-
-        <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
-            
-            <Label Text="Off"
-             x:Name="OffOnLabel"
-             VerticalOptions="Center"
-             HorizontalOptions="Center" />
-            
-            <Switch x:Name="ToggleSwitch"              
-              Toggled="RecurringQuestionsSwitchToggled"
-              HorizontalOptions="Center" />
-        </HorizontalStackLayout>
+                Style="{StaticResource StyledButton}"/>
+            </StackLayout>
+        </Border>
         
-        <Label x:Name="RecQuestionsHint" 
-               Text="With Recurring questions on, we'll re-ask you a question at some point after you've answered it."
-               TextColor="#aeaeae"
-               Padding="15"
-               HorizontalTextAlignment="Center"/>
+        <!--Recurring Questions-->
+        <Border Style="{StaticResource DisplayBox}">
+        <StackLayout>
+                    <Label Text="Recurring Questions:"
+                   HorizontalOptions="Center"/>
+                               
+            <Label x:Name="RecQuestionsHint" 
+                   Text="With Recurring Questions on, we'll re-ask you a question at some point after you've answered it."
+                   TextColor="#aeaeae"
+                   Padding="15"
+                   HorizontalTextAlignment="Center"/>
+
+             <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+            
+                <Label Text="Off"
+                 x:Name="OffOnLabel"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center" />
+
+                    <Switch x:Name="ToggleSwitch"              
+                  Toggled="RecurringQuestionsSwitchToggled"
+                  HorizontalOptions="Center" />
+            </HorizontalStackLayout>
+        
+        </StackLayout>
+        </Border>
+        
+        <!--Delete all questions Button-->
+        <Border Style="{StaticResource DisplayBox}" Padding="30">
+            <Button
+                 Text="Delete all questions"
+                 Clicked="OnDeleteQuestionsClicked"
+                 Background="#fc7070"
+                 TextColor="White"
+                 WidthRequest="160"
+                 BorderColor="#fff"
+                 CornerRadius="25"/>    
+        </Border>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

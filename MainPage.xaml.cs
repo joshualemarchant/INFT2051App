@@ -21,15 +21,16 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
         await LoadQuestionsAsync(); // Loads questions when page is visited
-        await LoadRecurringQuestionsAsync();
-      
     }
 
     // Loading questions from DB 
     private async Task LoadQuestionsAsync()
     {
         var questions = await App.Database.GetItemsAsync<UserQuestion>(); // Get questions from DB
-        allQuestions.Clear(); // Clear collection
+
+        // Clear old data from collections
+        allQuestions.Clear(); 
+        recurringQuestions.Clear(); 
 
         if (questions == null || !questions.Any())
         {
@@ -40,9 +41,14 @@ public partial class MainPage : ContentPage
             NoQuestionsLabel.IsVisible = false;
             foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
             {
-                if (q.IsAnswered == false)
-                allQuestions.Add(q); // Adds all questions to observable collection variable in order newest to oldest
-                
+                if (q.IsAnswered == true)
+                {
+                    allQuestions.Add(q);
+                    recurringQuestions.Add(q);
+                } else
+                {
+                    allQuestions.Add(q); // Adds all questions to observable collection variable in order newest to oldest
+                }
             }
         }
     }
@@ -98,25 +104,6 @@ public partial class MainPage : ContentPage
         {
             var questionId = question.ID;
             await Shell.Current.GoToAsync($"editquestionpage?QuestionId={questionId}");
-        }
-    }
-
-    private async Task LoadRecurringQuestionsAsync()
-    {
-        var questions = await App.Database.GetItemsAsync<UserQuestion>(); // Get questions from DB
-        recurringQuestions.Clear(); // Clear collection
-
-        if (questions == null || !questions.Any())
-        {
-            return;
-        }
-        else
-        {            
-            foreach (var q in questions.OrderByDescending(q => q.CreatedAt))
-            {
-                if (q.IsAnswered == true)
-                recurringQuestions.Add(q); // Adds all recurring questions to observable collection variable in order of newest to oldest
-            }           
         }
     }
 

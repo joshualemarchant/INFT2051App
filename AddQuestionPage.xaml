@@ -3,20 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.AddQuestionPage"
              Title="">
-
-    
     <ContentView>
         <VerticalStackLayout Spacing="20" Padding="15">
+            <Label 
+                    Text="Add a question"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    Style="{StaticResource Headline}"/> 
+
             <Label Text="Enter a Question and Answer prompt below and tell us how long to wait before we quiz you on it."
                    TextColor="#aeaeae"
-                   Padding="15"
+                   Padding="0,10,0,5"
                    HorizontalTextAlignment="Center">
                 
             </Label>
 
             <!-- Question Section -->
             <Border>
-                <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
+                <VerticalStackLayout Spacing="0" Style="{StaticResource DisplayBox}">
                     <Label Text="" />
                     <Entry x:Name="PromptEntry" Placeholder="Question:"
                            TextChanged="UpdateSaveAnswerButtonColour"/>
@@ -25,7 +29,7 @@
 
             <!-- Answer Section -->
             <Border>
-                <VerticalStackLayout Spacing="10" Style="{StaticResource DisplayBox}">
+                <VerticalStackLayout Spacing="0" Style="{StaticResource DisplayBox}">
                     <Label Text="" />
                     <Editor x:Name="AnswerEditor" Placeholder="Answer:"
                             TextChanged="UpdateSaveAnswerButtonColour"/>
@@ -37,7 +41,7 @@
                    Text="Test Mode"
                    FontSize="18"
                    HorizontalOptions="Center" 
-                   Padding="0,30,0,0"/>
+                   Padding="0,5,0,0"/>
 
             <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
                 <Label Text="Off"

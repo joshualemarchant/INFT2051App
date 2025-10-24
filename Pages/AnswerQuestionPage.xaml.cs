@@ -23,8 +23,7 @@ public partial class AnswerQuestionPage : ContentPage
         base.OnAppearing();
         Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId); // Get question from DB
         if (Question == null)
-        {
-            // TODO: Find way to delete scheduled notification instead of displaying this error
+        {            
             await DisplayAlert("Error", "This question no longer exists", "Ok");
             await Navigation.PopAsync();
         }

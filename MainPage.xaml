@@ -10,7 +10,7 @@
             <!-- Title -->
             <Label Text="Your Questions" 
                    FontSize="28" 
-                   HorizontalOptions="Start"
+                   HorizontalOptions="Center"
                    Margin="0,0,0,20"/>
 
             <Border>
@@ -22,7 +22,8 @@
 
             <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
                 
-                <Label Text="Show Recurring Questions"
+                <Label 
+                       Text="Only show recurring questions"
                        VerticalOptions="Center"
                        HorizontalOptions="Center" /> 
                 
@@ -78,6 +79,7 @@
                                         Clicked="OnShowAnswerClicked"
                                         Style="{StaticResource StyledButton}"
                                         WidthRequest="115"/>
+                                    
                                     <!--Edit Button-->
                                     <Button Text="Edit"
                                             Style="{StaticResource StyledButton}"

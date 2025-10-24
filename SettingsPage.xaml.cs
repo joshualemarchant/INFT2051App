@@ -1,5 +1,7 @@
 
 
+using System.Threading.Tasks;
+
 namespace INFT2051App;
 
 public partial class SettingsPage : ContentPage
@@ -11,6 +13,7 @@ public partial class SettingsPage : ContentPage
         BindingContext = this;
         DisplayPreferences(); // auto-Sets input fields to current preference times
     }
+
     //TODO: Add option for 24/7 prompting
     private void OnSaveClicked(object sender, EventArgs e)
     {
@@ -40,15 +43,12 @@ public partial class SettingsPage : ContentPage
         if (e.Value) 
         {                     
             OffOnLabel.Text = "On";
-            RecQuestionsHint.IsVisible = true;
             Preferences.Default.Set("RecurringQuestionsIsOn", true);           
         }
         else
         {
-            // TODO: Add a way to cascade delete stored recurring questions when this is turned off
             OffOnLabel.Text = "Off";
-            RecQuestionsHint.IsVisible = false;
-            Preferences.Default.Set("RecurringQuestionsIsOn", false);
+            Preferences.Default.Set("RecurringQuestionsIsOn", false);          
         }
     }
 
@@ -57,5 +57,25 @@ public partial class SettingsPage : ContentPage
         UserStartTime.Time = Utilities.ConvertToTimeSpan("HourStart", "9:00");
         UserEndTime.Time = Utilities.ConvertToTimeSpan("HourEnd", "17:00");
         ToggleSwitch.IsToggled = Preferences.Default.Get("RecurringQuestionsIsOn", false);
+    }
+
+    private async void OnDeleteQuestionsClicked(object sender, EventArgs e)
+    {
+        bool answer = await DisplayAlert("Warning!", "You are about to delete every question you have created!. " +
+            "Are you sure you want to do this?", "Yes", "No");
+        if (answer)
+        {
+            var questions = await App.Database.GetItemsAsync<UserQuestion>();
+            foreach (var q in questions)
+            {
+                await Utilities.ClearNotification(q.ID);
+                await App.Database.DeleteItemAsync(q);
+            }
+            
+        } 
+        else
+        {
+            return;
+        }
     }
 }

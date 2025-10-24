@@ -6,15 +6,23 @@
     
         <ScrollView>
         <VerticalStackLayout>
+            <Label 
+               Text="Edit Question"
+               VerticalOptions="Center" 
+               HorizontalOptions="Center"
+               Style="{StaticResource Headline}"/>
             
-            <!--Edit Question fields-->
-            <Entry x:Name="NewQuestion"></Entry>
-            <Entry x:Name="NewAnswer"></Entry>
-
+            <Border Style="{StaticResource DisplayBox}">
+            <StackLayout>
+                    <!--Edit Question fields-->
+                    <Entry x:Name="NewQuestion"></Entry>
+                    <Entry x:Name="NewAnswer"></Entry>
+            </StackLayout>
+        </Border>
             <HorizontalStackLayout 
                 Spacing="30"                                   
                 HorizontalOptions="Center"
-                Padding="0,100,0,0">
+                Padding="0,60,0,0">
                 
                 <!--Delete Button-->
                 <Button
@@ -32,6 +40,6 @@
                         WidthRequest="120"/>
             </HorizontalStackLayout>    
         </VerticalStackLayout>
-        </ScrollView>
+    </ScrollView>
     
 </ContentPage>

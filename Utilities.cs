@@ -1,6 +1,8 @@
-﻿namespace INFT2051App
+﻿using Plugin.LocalNotification;
+
+namespace INFT2051App
 {
-    // I put these methods in a Utilities class to keep the AddQuestionPage file bit cleaner
+    // I put these methods in a Utilities class to keep some files a bit cleaner
     internal class Utilities
     {
         // This method is used to get the prompting hour values stored in preferences as a string and return them as TimeSpan values
@@ -28,6 +30,20 @@
 
             // Return start + offset
             return start + TimeSpan.FromSeconds(randomSeconds);
-        }   
+        }
+        public static async Task ClearNotification(int questionID)
+        {
+            // Get all pending notifications
+            var pending = await LocalNotificationCenter.Current.GetPendingNotificationList();
+
+            // Clean up old notifications
+            foreach (var notification in pending)
+            {
+                if (notification.NotificationId == questionID)
+                {
+                    LocalNotificationCenter.Current.Cancel(notification.NotificationId);
+                }
+            }
+        }
     }
 }
