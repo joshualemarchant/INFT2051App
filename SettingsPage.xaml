@@ -47,7 +47,6 @@
                                
             <Label x:Name="RecQuestionsHint" 
                    Text="With Recurring Questions on, we'll re-ask you a question at some point after you've answered it."
-                   TextColor="#aeaeae"
                    Padding="15"
                    HorizontalTextAlignment="Center"/>
 

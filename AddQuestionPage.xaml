@@ -12,7 +12,6 @@
                     Style="{StaticResource Headline}"/> 
 
             <Label Text="Enter a Question and Answer prompt below and tell us how long to wait before we quiz you on it."
-                   TextColor="#aeaeae"
                    Padding="0,10,0,5"
                    HorizontalTextAlignment="Center">
                 
