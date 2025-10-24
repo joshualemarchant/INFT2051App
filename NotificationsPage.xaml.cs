@@ -2,8 +2,6 @@ using INFT2051App.Pages;
 using System.Collections.ObjectModel;
 
 namespace INFT2051App;
-
-// TODO: Add pull to refresh feature
 public partial class NotificationsPage : ContentPage
 {
     private ObservableCollection<UserQuestion> DueQuestions { get; } = new(); // Collection to store questions that are due
@@ -40,6 +38,13 @@ public partial class NotificationsPage : ContentPage
             var questionId = question.ID;           
             await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}"); // pass Question ID in argument to render question object on corresponding answer page
         }
+    }
+
+    // Refresh method
+    private async void OnRefresh(object sender, EventArgs e)
+    {
+        await LoadDueQuestionsAsync(); // reload due questions
+        Refresh.IsRefreshing = false; // Stop spinner
     }
 }
     

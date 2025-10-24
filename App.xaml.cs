@@ -31,7 +31,9 @@ namespace INFT2051App
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+
             return new Window(new AppShell());
+
         }
         
         // Notification fired / received behaviour (updates question IsDue status to 'true')
@@ -50,8 +52,16 @@ namespace INFT2051App
         // Notification tapped behaviour (takes user directly to answer question page)
         private async void OnNotificationTapped(NotificationActionEventArgs e)
         {
-            int questionId = int.Parse(e.Request.ReturningData); // question ID string converted to Int           
-            await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}"); // Navigates to corresponding answer question page with fetched ID            
+            if (e.IsDismissed)
+            {
+                return; // return if dismissed
+            } 
+            if (e.IsTapped)
+            {
+                await Task.Delay(500); // allow app shell to build if launching app from notification tap to avoid crash
+                int questionId = int.Parse(e.Request.ReturningData); // question ID string converted to Int                                                                 
+                await Shell.Current.GoToAsync($"answerpage?QuestionId={questionId}"); // Navigates to corresponding answer question page with fetched ID            
+            }
         }
     }
 }

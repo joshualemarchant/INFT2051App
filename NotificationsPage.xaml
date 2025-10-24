@@ -3,43 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.NotificationsPage"
              Title="">
-
-    <ScrollView>
-        <VerticalStackLayout>
+    <RefreshView
+        x:Name="Refresh"
+        Refreshing="OnRefresh">
+        <ScrollView>
+            <VerticalStackLayout>
             <Label Text="Due Questions"
                 FontSize="28" 
                 FontAttributes="Bold" 
                 HorizontalOptions="Center"
                 Margin="0,0,0,20"/>
-           
+
             <CollectionView x:Name="DueQuestionsCollection"
                             ItemsSource="{Binding DueQuestions}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                    <Border>
-                        <VerticalStackLayout Style="{StaticResource DisplayBox}">
+                        <Border>
+                            <VerticalStackLayout Style="{StaticResource DisplayBox}">
 
-                            <!-- Question text -->
-                            <Label Text="{Binding Prompt}" 
+                                <!-- Question text -->
+                                <Label Text="{Binding Prompt}" 
                                    FontSize="16"
                                    FontAttributes="Bold"
                                    LineBreakMode="TailTruncation"/>
 
-                            <!-- Created/Submitted date -->
-                            <Label Text="{Binding CreatedAt, StringFormat='Created: {0:MMM dd, yyyy hh:mm tt}'}"
+                                <!-- Created/Submitted date -->
+                                <Label Text="{Binding CreatedAt, StringFormat='Created: {0:MMM dd, yyyy hh:mm tt}'}"
                                    FontSize="12"
                                    TextColor="Gray"/>
-                            
-                            <!-- Optional action button -->
+
+                                <!-- Optional action button -->
                                 <Button Text="Tap to answer"
                                         Style="{StaticResource StyledButton}"
                                         Clicked="OnGoToAnswerQuestionPageClicked"
                                         CommandParameter="{Binding .}"/>
                             </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
+                        </Border>
+                    </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>
