@@ -2,8 +2,6 @@
 namespace INFT2051App.Pages;
 
 [QueryProperty(nameof(QuestionId), "QuestionId")]
-
-// TODO: Add more comments
 public partial class EditQuestionPage : ContentPage
 {
     public int QuestionId { get; set; }
@@ -18,24 +16,38 @@ public partial class EditQuestionPage : ContentPage
     {
         base.OnAppearing();
 
-        currentQuestion = await App.Database.GetItemAsync<UserQuestion>(QuestionId);
+        // Get question from DB
+        currentQuestion = await App.Database.GetItemAsync<UserQuestion>(QuestionId); 
 
+        // Populate fields with current Question and Answer
         NewQuestion.Text = currentQuestion.Prompt;
         NewAnswer.Text = currentQuestion.Answer;
     }
 
+    // Save new question details method
     private async void OnSaveClicked(object sender, EventArgs e)
     {
-        currentQuestion.Prompt = NewQuestion.Text;
-        currentQuestion.Answer = NewAnswer.Text;
+        // Check if input fields are filled
+        if (string.IsNullOrWhiteSpace(NewQuestion.Text) || string.IsNullOrWhiteSpace(NewAnswer.Text))
+        {
+            await DisplayAlert("Attention", "Fields cannot be empty!", "Ok");
+            return;
+        } 
+        else
+        {
+            // Save new question details
+            currentQuestion.Prompt = NewQuestion.Text;
+            currentQuestion.Answer = NewAnswer.Text;
 
-        await App.Database.SaveItemAsync(currentQuestion);
+            await App.Database.SaveItemAsync(currentQuestion);
 
-        await DisplayAlert("Saved", "Question updated successfully!", "OK");
-        await Shell.Current.GoToAsync(".."); 
+            await DisplayAlert("Saved", "Question updated successfully!", "OK");
+            await Shell.Current.GoToAsync(".."); 
 
+        }
     }
 
+    // Delete question method
     private async void OnDeleteAnswerClicked(object sender, EventArgs e)
     {
         bool answer = await DisplayAlert("Attention", "Are you sure you want to delete this question?", "Yes", "No");

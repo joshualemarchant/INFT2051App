@@ -1,7 +1,7 @@
 namespace INFT2051App.Pages;
 [QueryProperty(nameof(QuestionId), "QuestionId")]
 
-// TODO: Add more comments
+
 public partial class AnswerQuestionPage : ContentPage
 {
     public int QuestionId { get; set; }
@@ -17,19 +17,21 @@ public partial class AnswerQuestionPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId);
-        OnPropertyChanged(nameof(Question));
+        Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId); // Get question from DB
+        OnPropertyChanged(nameof(Question)); // Set local variable to question fetched from DB
     }
 
     private async void OnEnterClicked(object sender, EventArgs e)
     
     {
+        // Check if field isnt empty
         if (string.IsNullOrWhiteSpace(UserAnswer))
         {
             await DisplayAlert("Error", "Please enter an answer before submitting.", "OK");
             return;
         }
 
+        // Check if answer is corect
         if (Question.Answer.ToLower().Trim() == UserAnswer.ToLower().Trim())
         {
             Question.IsAnswered = true;
@@ -40,6 +42,7 @@ public partial class AnswerQuestionPage : ContentPage
             await DisplayAlert("Result", "Incorrect!", "Try Again");
         }
 
+        // Delete question if correct
         if (Question.IsAnswered)
         {
             await App.Database.DeleteItemAsync(Question);
@@ -47,6 +50,7 @@ public partial class AnswerQuestionPage : ContentPage
         }
     }
 
+    // Method for dynamic Enter button colour
     public void UpdateEntryButtonColour(object sender, TextChangedEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(AnswerEditor.Text))

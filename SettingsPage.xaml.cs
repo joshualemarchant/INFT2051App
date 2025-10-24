@@ -1,3 +1,5 @@
+
+
 namespace INFT2051App;
 
 public partial class SettingsPage : ContentPage
@@ -29,6 +31,19 @@ public partial class SettingsPage : ContentPage
             DisplayAlert("Attention",
                 $"You will be prompted between the hours of {start} and {end}",
                 "ok");
+        }
+    }
+
+    private void RecurringQuestionsSwitchToggled(object sender, ToggledEventArgs e)
+    {
+        if (e.Value) // Hides data selection box if on
+        {                     
+            OffOnLabel.Text = "On";
+            
+        }
+        else
+        {           
+            OffOnLabel.Text = "Off";
         }
     }
 

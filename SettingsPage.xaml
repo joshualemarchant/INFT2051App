@@ -7,19 +7,50 @@
         <Label 
             Text="Settings"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            Padding="0,0,0,70"
+            Style="{StaticResource Headline}"/>
 
         <Label
-            Text="Prompting Hours:">
+            Text="Notify me between:"
+            HorizontalOptions="Center">
             
         </Label>
-        
+        <Border Style="{StaticResource DisplayBox}">
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" >
+            
         <TimePicker x:Name="UserStartTime"
-            Time="{Binding PromptHourStart, Mode=TwoWay}" />
+                    Time="{Binding PromptHourStart, Mode=TwoWay}" />
+                    
 
+            <Label Text="and"
+                   Margin="0,12,0,0"> 
+                
+            </Label>
+            
         <TimePicker x:Name="UserEndTime"
-            Time="{Binding PromptHourEnd, Mode=TwoWay}" />
+                    Time="{Binding PromptHourEnd, Mode=TwoWay}" />
+                   
+        </HorizontalStackLayout>
+        </Border>
 
+        <Label Text="Recurring Questions:"
+               HorizontalOptions="Center">
+        </Label>
+
+        <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+            
+            <Label Text="Off"
+             x:Name="OffOnLabel"
+             VerticalOptions="Center"
+             HorizontalOptions="Center" />
+            
+            <Switch x:Name="ToggleSwitch"
+              IsToggled="False"
+              Toggled="RecurringQuestionsSwitchToggled"
+              HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        
         <Button
             Text="Save Times"
             Clicked="OnSaveClicked"
