@@ -14,12 +14,13 @@ public partial class AddQuestionPage : ContentPage
     public AddQuestionPage()
 	{
 		InitializeComponent();
+        
         BindingContext = this;
         AskPermissions(); // requests notification permissions from user
 	}
 
     // Sets variables to preference value. Called on every page visit in case of preferences being updated
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
         TimeStart = Utilities.ConvertToTimeSpan("HourStart", "5:00");
@@ -53,11 +54,30 @@ public partial class AddQuestionPage : ContentPage
             return;
         }
 
+        // Add question mark automatically
+        string QuestionPrompt = PromptEntry.Text.TrimEnd().TrimStart();
+        if (!QuestionPrompt.EndsWith("?"))
+        {
+            QuestionPrompt += "?";
+        }
+
+        // Question duplication prevention
+        var StoredQuestions = await App.Database.GetItemsAsync<UserQuestion>();
+
+        foreach (var q in StoredQuestions)
+        {
+            if (q.Prompt.ToLower() == QuestionPrompt.ToLower())
+            {
+                await DisplayAlert("Attention", "That question already exists!", "Ok");
+                return;
+            }
+        }
+
         // Question object creation 
         var question = new UserQuestion
         {
-            Prompt = PromptEntry.Text,
-            Answer = AnswerEditor.Text,
+            Prompt = QuestionPrompt,
+            Answer = AnswerEditor.Text.TrimStart().TrimEnd(),
             CreatedAt = DateTime.Now,
             IsDue = false,
             IsAnswered = false

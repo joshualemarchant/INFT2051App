@@ -7,14 +7,14 @@
         <VerticalStackLayout Spacing="20" Padding="15">
             <Label 
                     Text="Add a question"
-                    VerticalOptions="Center" 
+                    VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Style="{StaticResource Headline}"/> 
+                    Style="{StaticResource TopTitle}"/>
 
             <Label Text="Enter a Question and Answer prompt below and tell us how long to wait before we quiz you on it."
                    Padding="0,10,0,5"
                    HorizontalTextAlignment="Center">
-                
+
             </Label>
 
             <!-- Question Section -->
@@ -56,14 +56,14 @@
             <!-- Date Selection -->
             <Border x:Name="DateBorder" IsVisible="True">
                 <StackLayout x:Name="DateSelectionBox" IsVisible="True" Padding="20" Style="{StaticResource DisplayBox}">
-                <Label Text="Ask me this question on:" />
-                <DatePicker x:Name="MyDatePicker"                   
+                    <Label Text="Ask me this question on:" />
+                    <DatePicker x:Name="MyDatePicker"                   
                             MinimumDate="{Binding CurrentDateTime}"
                             MaximumDate="12/31/2100"
                             Format="D"/>
-            </StackLayout>
+                </StackLayout>
             </Border>
-        
+
             <!-- Save Button -->
             <Button x:Name="SaveButton" Text="Save" Clicked="onSaveClicked" Style="{StaticResource GreyButton}"/>
         </VerticalStackLayout>

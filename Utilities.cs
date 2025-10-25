@@ -31,12 +31,14 @@ namespace INFT2051App
             // Return start + offset
             return start + TimeSpan.FromSeconds(randomSeconds);
         }
+
+        // Clear pending notification method 
         public static async Task ClearNotification(int questionID)
         {
             // Get all pending notifications
             var pending = await LocalNotificationCenter.Current.GetPendingNotificationList();
 
-            // Clean up old notifications
+            // Clear notification by ID
             foreach (var notification in pending)
             {
                 if (notification.NotificationId == questionID)

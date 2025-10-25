@@ -4,78 +4,78 @@
              x:Class="INFT2051App.SettingsPage"
              Title="">
     <ScrollView>
-    <VerticalStackLayout>
-        <Label 
+        <VerticalStackLayout>
+            <Label 
             Text="Settings"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
-            Padding="0,0,0,40"
-            Style="{StaticResource Headline}"/>
+            Padding="0,0,0,20"
+            Style="{StaticResource TopTitle}"/>
 
-        <!--Prompting Hours-->
-        <Border Style="{StaticResource DisplayBox}">
-            <StackLayout>
-                <Label
+            <!--Prompting Hours-->
+            <Border Style="{StaticResource DisplayBox}">
+                <StackLayout>
+                    <Label
                 Text="Notify me between:"
                 HorizontalOptions="Center"
                 Padding="0,0,0,20">
-                </Label>
+                    </Label>
 
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" Padding="0,0,0,30">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="30" Padding="0,0,0,30">
 
-                <TimePicker x:Name="UserStartTime"
+                        <TimePicker x:Name="UserStartTime"
                     Time="{Binding PromptHourStart, Mode=TwoWay}" />
 
-                <Label Text="and" Margin="0,12,0,0"></Label>
+                        <Label Text="and" Margin="0,12,0,0"></Label>
 
-                <TimePicker x:Name="UserEndTime"
+                        <TimePicker x:Name="UserEndTime"
                     Time="{Binding PromptHourEnd, Mode=TwoWay}" />
-            </HorizontalStackLayout>
-        
-            <Button
+                    </HorizontalStackLayout>
+
+                    <Button
                 Text="Save times"
                 Clicked="OnSaveClicked"
                 Style="{StaticResource StyledButton}"/>
-            </StackLayout>
-        </Border>
-        
-        <!--Recurring Questions-->
-        <Border Style="{StaticResource DisplayBox}">
-        <StackLayout>
+                </StackLayout>
+            </Border>
+
+            <!--Recurring Questions-->
+            <Border Style="{StaticResource DisplayBox}">
+                <StackLayout>
                     <Label Text="Recurring Questions:"
                    HorizontalOptions="Center"/>
-                               
-            <Label x:Name="RecQuestionsHint" 
+
+                    <Label x:Name="RecQuestionsHint" 
                    Text="With Recurring Questions on, we'll re-ask you a question at some point after you've answered it."
                    Padding="15"
                    HorizontalTextAlignment="Center"/>
 
-             <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
-            
-                <Label Text="Off"
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+
+                        <Label Text="Off"
                  x:Name="OffOnLabel"
                  VerticalOptions="Center"
                  HorizontalOptions="Center" />
 
-                    <Switch x:Name="ToggleSwitch"              
+                        <Switch x:Name="ToggleSwitch"              
                   Toggled="RecurringQuestionsSwitchToggled"
                   HorizontalOptions="Center" />
-            </HorizontalStackLayout>
-        
-        </StackLayout>
-        </Border>
-        
-        <!--Delete all questions Button-->
-        <Border Style="{StaticResource DisplayBox}" Padding="30">
-            <Button
+                    </HorizontalStackLayout>
+
+                </StackLayout>
+            </Border>
+
+            <!--Delete all questions Button-->
+            <Border Style="{StaticResource DisplayBox}" Padding="30">
+                <Button
                  Text="Delete all questions"
                  Clicked="OnDeleteQuestionsClicked"
                  Background="#fc7070"
                  TextColor="White"
                  WidthRequest="160"
                  BorderColor="#fff"
-                 CornerRadius="25"/>    
-        </Border>
-    </VerticalStackLayout>
+                 CornerRadius="25"/>
+            </Border>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

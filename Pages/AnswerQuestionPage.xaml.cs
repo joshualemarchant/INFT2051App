@@ -11,7 +11,7 @@ public partial class AnswerQuestionPage : ContentPage
     public UserQuestion Question { get; set; }
     public string UserAnswer { get; set; }
 
-    public bool RecurringQuestionsIsOn;
+    public bool RecurringQuestionsIsOn; // If true, answered questions will be automatically rescheduled
     public AnswerQuestionPage()
     {
         InitializeComponent();
@@ -21,7 +21,10 @@ public partial class AnswerQuestionPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
         Question = await App.Database.GetItemAsync<UserQuestion>(QuestionId); // Get question from DB
+
+        // Error handling for edge case in which question was deleted after notification has fired
         if (Question == null)
         {            
             await DisplayAlert("Error", "This question no longer exists", "Ok");
@@ -30,7 +33,7 @@ public partial class AnswerQuestionPage : ContentPage
         else
         {
             OnPropertyChanged(nameof(Question)); // Set local variable to question fetched from DB
-            RecurringQuestionsIsOn = Preferences.Default.Get("RecurringQuestionsIsOn", false);
+            RecurringQuestionsIsOn = Preferences.Default.Get("RecurringQuestionsIsOn", false); // Set Recurring questions value
         }
     }
 
@@ -57,7 +60,7 @@ public partial class AnswerQuestionPage : ContentPage
             await DisplayAlert("Result", "Incorrect!", "Try Again");
         }
 
-        
+        // Recurring question scheduling
         if (Question.IsAnswered)
         {
             if(RecurringQuestionsIsOn)
@@ -69,7 +72,7 @@ public partial class AnswerQuestionPage : ContentPage
                     Description = Question.Prompt,
                     Schedule =
                 {
-                    NotifyTime = DateTime.Now.AddSeconds(15)
+                    NotifyTime = DateTime.Now.AddSeconds(15) // Defaults to 15 seconds for app prototype purposes
                 },
                     ReturningData = Question.ID.ToString() // Parse ID to string so it can be stored in notification returning data
                 };

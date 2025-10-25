@@ -3,34 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="INFT2051App.MainPage"
              Title="">
-			 
-  <ScrollView>
+
+    <ScrollView>
         <VerticalStackLayout>
-            
+
             <!-- Title -->
             <Label Text="Your Questions" 
-                   FontSize="28" 
+                   Style="{StaticResource TopTitle}"
                    HorizontalOptions="Center"
                    Margin="0,0,0,20"/>
 
             <Border>
                 <SearchBar x:Name="FilterSearchBar"
-                       Placeholder="Search Questions..."
+                       Placeholder="Search your Questions..."
                        TextChanged="OnTextChanged">
                 </SearchBar>
             </Border>
 
             <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
-                
+
                 <Label 
                        Text="Only show recurring questions"
                        VerticalOptions="Center"
-                       HorizontalOptions="Center" /> 
-                
+                       HorizontalOptions="Center" />
+
                 <Switch x:Name="ToggleSwitch"
                         IsToggled="False"
                         Toggled="SwitchToggled"
-                        HorizontalOptions="Center" />  
+                        HorizontalOptions="Center" />
             </HorizontalStackLayout>
 
             <!--Display message if user has no questions-->
@@ -46,11 +46,11 @@
                             ItemsLayout="VerticalList"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                    <DataTemplate>
                         <Border>
                             <VerticalStackLayout Style="{StaticResource DisplayBox}">
                                 <!--Question-->
-                                    <Label Text="{Binding Prompt}"
+                                <Label Text="{Binding Prompt}"
                                            Style="{StaticResource SubHeadline}"
                                            LineBreakMode="WordWrap"
                                            HorizontalOptions="Start"
@@ -79,7 +79,7 @@
                                         Clicked="OnShowAnswerClicked"
                                         Style="{StaticResource StyledButton}"
                                         WidthRequest="115"/>
-                                    
+
                                     <!--Edit Button-->
                                     <Button Text="Edit"
                                             Style="{StaticResource StyledButton}"
@@ -90,10 +90,10 @@
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                                 
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
- 
+
 </ContentPage>

@@ -20,14 +20,16 @@ public partial class NotificationsPage : ContentPage
     // Load questions method
     private async Task LoadDueQuestionsAsync()
     {       
-        var questions = await App.Database.GetItemsAsync<UserQuestion>(); // Get all questions from database
-
-        var dueQuestions = questions.Where(q => q.IsDue).OrderByDescending(q => q.CreatedAt); // Create variable to store due questions in descending order
-
-        // Clear collection to remove old notifications and add due questions
-        DueQuestions.Clear(); 
-        foreach (var q in dueQuestions)
-            DueQuestions.Add(q); 
+        var dueQuestions = await App.Database.GetItemsAsync<UserQuestion>(); // Get all questions from database
+          
+        DueQuestions.Clear(); // Clear old notifications
+        foreach (var q in dueQuestions.OrderByDescending(q => q.CreatedAt))
+        {
+            if (q.IsDue == true)
+            {
+                DueQuestions.Add(q); 
+            }
+        }
     }
 
     // Navigate to answer page method

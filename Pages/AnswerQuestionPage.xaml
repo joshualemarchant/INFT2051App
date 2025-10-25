@@ -10,7 +10,7 @@
             
             <!--Question-->
             <Label Text="{Binding Question.Prompt}"
-                   TextColor="White" 
+                   TextColor="{AppThemeBinding Light ={StaticResource Black}, Dark={StaticResource White}}"
                    Style="{StaticResource Headline}"
                    Padding="0, 30, 0, 100"/>
 
