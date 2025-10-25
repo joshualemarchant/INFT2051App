@@ -42,32 +42,35 @@
             <!--Recurring Questions-->
             <Border Style="{StaticResource DisplayBox}">
                 <StackLayout>
+
                     <Label Text="Recurring Questions:"
                    HorizontalOptions="Center"/>
 
                     <Label x:Name="RecQuestionsHint" 
-                   Text="With Recurring Questions on, we'll re-ask you a question at some point after you've answered it."
-                   Padding="15"
-                   HorizontalTextAlignment="Center"/>
+                           Text="With Recurring Questions on, we'll re-ask you a question at some point after you've answered it."
+                           Padding="15"
+                           HorizontalTextAlignment="Center"/>
 
                     <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
 
                         <Label Text="Off"
-                 x:Name="OffOnLabel"
-                 VerticalOptions="Center"
-                 HorizontalOptions="Center" />
+                                x:Name="OffOnLabel"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
 
                         <Switch x:Name="ToggleSwitch"              
-                  Toggled="RecurringQuestionsSwitchToggled"
-                  HorizontalOptions="Center" />
+                                  Toggled="RecurringQuestionsSwitchToggled"
+                                  HorizontalOptions="Center" />
                     </HorizontalStackLayout>
 
                 </StackLayout>
             </Border>
 
             <!--Delete all questions Button-->
-            <Border Style="{StaticResource DisplayBox}" Padding="30">
-                <Button
+
+            <VerticalStackLayout>
+                
+            <Button
                  Text="Delete all questions"
                  Clicked="OnDeleteQuestionsClicked"
                  Background="#fc7070"
@@ -75,7 +78,10 @@
                  WidthRequest="160"
                  BorderColor="#fff"
                  CornerRadius="25"/>
-            </Border>
+            </VerticalStackLayout>
+            
+            
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
