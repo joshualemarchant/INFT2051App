@@ -13,8 +13,6 @@ public partial class SettingsPage : ContentPage
         BindingContext = this;
         DisplayPreferences(); // auto-Sets input fields to current preference times
     }
-
-    //TODO: Add option for 24/7 prompting
     private void OnSaveClicked(object sender, EventArgs e)
     {
         if (UserEndTime.Time <= UserStartTime.Time)
